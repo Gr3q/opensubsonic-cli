@@ -8,6 +8,8 @@ Severely incomplete.
 
 ## Running the cli
 
+_If you don't trust this tool backup your DB first._
+
 ```bash
 git clone https://github.com/Gr3q/opensubsonic-cli.git
 cd opensubsonic-cli

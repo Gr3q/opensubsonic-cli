@@ -16,6 +16,8 @@ def add_playlist_to_favorites(
     
        It does not check if the songs are already in the favorites list, it will just add all missing.
        If you want to remove the songs included in a playlist from the favorites list, do that with `remove_playlist_to_favorites`.
+       
+       TODO: Ask if you want to proceed if some songs are already in the favorites list.
     '''
     
     playlist = get_playlist_api(id, client=client)
