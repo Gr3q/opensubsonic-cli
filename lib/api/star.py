@@ -1,5 +1,4 @@
 from collections.abc import Sequence
-import json
 from typing import Any
 
 from httpx import Client

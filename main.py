@@ -11,7 +11,5 @@ app.add_typer(get_playlists_typer)
 app.add_typer(get_playlist_typer)
 app.add_typer(utils_commands, name="utils")
 
-        
-
 if __name__ == "__main__":
     app()

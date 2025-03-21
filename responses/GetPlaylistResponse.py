@@ -1,9 +1,11 @@
 from pydantic import AliasPath, BaseModel, Field
 from models.Playlist import Playlist
-from models.Response import SubsonicResponse
+from models.Response import SubsonicFailedResponse, SubsonicSuccessResponse
 
-class GetPlaylistSubsonicResponse(SubsonicResponse):
+class GetPlaylistSubsonicSuccessResponse(SubsonicSuccessResponse):
     playlist: Playlist
     
+class GetPlaylistSubsonicFailedResponse(SubsonicFailedResponse):
+    pass  
 class GetPlaylistResponse(BaseModel):
-    subsonicResponse: GetPlaylistSubsonicResponse = Field(validation_alias=AliasPath('subsonic-response'))
+    subsonicResponse: GetPlaylistSubsonicFailedResponse = Field(validation_alias=AliasPath('subsonic-response'))

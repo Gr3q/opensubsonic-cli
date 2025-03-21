@@ -3,7 +3,7 @@ from typing import Any
 from httpx import Client
 from pydantic import ValidationError
 
-from lib.exception import BadHTTPResponse
+from lib.exception import BadHTTPResponse, SubsonicException
 from models.Playlist import Playlist
 from responses.GetPlaylistResponse import GetPlaylistResponse
 
@@ -26,7 +26,10 @@ def get_playlist(
     try:
         data: Any = response.json()
         result = GetPlaylistResponse(**data)
+        if (result.subsonicResponse.status == "failed"):
+            raise SubsonicException(result.subsonicResponse.error)
         return result.subsonicResponse.playlist
+
     except JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
         raise e
