@@ -23,12 +23,12 @@ Follow the output of the cli for available commands.
 
 ### CLI
 
-All root level commands map to OpenSubsonic commands, `utils` have convenience commands.
+All root level commands map to OpenSubsonic endpoints, `utils` have convenience commands.
 
 ### Directory structure
 
 * `models` - OpenSubsonic data models (with pydantic)
-* `responses` - OpenSubsonic API response models (with pydantic)
+* `responses` - OpenSubsonic API endpoint response models (with pydantic)
 * `lib` - OpenSubsonic API httpx client
 * `cli` - CLI commands
 
