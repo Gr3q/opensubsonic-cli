@@ -39,7 +39,6 @@ def star(
             raise SubsonicException(result.subsonicResponse.error)
 
     except JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
         raise e
     except ValidationError as e:
         raise e

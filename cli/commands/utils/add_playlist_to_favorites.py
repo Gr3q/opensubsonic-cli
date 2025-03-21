@@ -20,10 +20,7 @@ def add_playlist_to_favorites(
        TODO: Ask if you want to proceed if some songs are already in the favorites list.
     '''
     
-    playlist = get_playlist_api(id, client=client)
-    if playlist is None:
-        return
-    
+    playlist = get_playlist_api(id, client=client)   
     if (playlist.entry is None):
         print("Playlist has no entries")
         return
@@ -33,4 +30,4 @@ def add_playlist_to_favorites(
     # batches of 100 because the URL can be too big
     split_id_lists = [ids[i:i + 100] for i in range(0, len(ids), 100)]
     for split_ids in split_id_lists:
-        print(star(split_ids, client=client))
+        star(split_ids, client=client)
