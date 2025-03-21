@@ -1,7 +1,7 @@
 from httpx import Client
 import typer
 
-from lib.params import get_static_params
+from lib.client import generate_client
 
 
 def http_client(
@@ -10,6 +10,6 @@ def http_client(
     password: str = typer.Option(help="The password to use for authentication", prompt=True, hide_input=True, envvar="NAVIDROME_PASSWORD"),
 ) -> Client:
     
-    client = Client(base_url=base_url, params=get_static_params(user, password))
+    client = generate_client(base_url, user, password)
     # TODO: client cleanup with yield?
     return client
