@@ -1,0 +1,12 @@
+[project]
+name = "navidrome-utils"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "httpx>=0.28.1",
+    "pydantic>=2.10.6",
+    "typer>=0.15.2",
+    "typer-di>=0.1.3",
+]

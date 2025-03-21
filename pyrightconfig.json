@@ -1,0 +1,6 @@
+{
+    "reportUnusedCallResult": "none",
+    "reportCallInDefaultInitializer": "none",
+    "reportExplicitAny": "none",
+    "reportAny": "none"
+}
