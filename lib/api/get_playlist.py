@@ -12,7 +12,7 @@ def get_playlist(
     id: str,
     *,
     client: Client,
-) -> Playlist | None:
+) -> Playlist:
     response = client.get(
         "/rest/getPlaylist",
         params={
@@ -31,7 +31,6 @@ def get_playlist(
         return result.subsonicResponse.playlist
 
     except JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
         raise e
     except ValidationError as e:
         raise e

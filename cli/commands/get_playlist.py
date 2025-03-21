@@ -12,9 +12,5 @@ def get_playlist(
     client: Client = Depends(http_client)
 ) -> None:
     ''' Get the details of a single playlist. '''
-    data = get_playlist_api(id, client=client)
-    if data is None:
-        print("No data")
-        return
-    
+    data = get_playlist_api(id, client=client)   
     print(json.dumps(data.model_dump(), indent=4))

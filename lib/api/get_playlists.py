@@ -1,13 +1,17 @@
 
 
+from json import JSONDecodeError
 from typing import Any
 from httpx import Client
+from pydantic import ValidationError
 
-from lib.exception import BadHTTPResponse
+from lib.exception import BadHTTPResponse, SubsonicException
+from models.Playlists import Playlists
+from responses.GetPlaylistsResponse import GetPlaylistsResponse
 
 def get_playlists(
     client: Client
-) -> Any:
+) -> Playlists:
     ''' Get all playlists you have access to. '''
     response = client.get(
         f"/rest/getPlaylists",
@@ -16,6 +20,14 @@ def get_playlists(
     if (response.status_code != 200):
         raise BadHTTPResponse(response)
     
-    # TODO: payload validation
-    payload = response.json()
-    return payload
+    try:
+        data: Any = response.json()
+        result = GetPlaylistsResponse(**data)
+        if (result.subsonicResponse.status == "failed"):
+            raise SubsonicException(result.subsonicResponse.error)
+        return result.subsonicResponse.playlists
+
+    except JSONDecodeError as e:
+        raise e
+    except ValidationError as e:
+        raise e

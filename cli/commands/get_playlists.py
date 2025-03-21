@@ -12,9 +12,5 @@ def get_playlists(
     client: Client = Depends(http_client)
 ) -> None:
     ''' Get all playlists you have access to. '''
-    result = get_playlists_api(client=client)
-    if result is None:
-        print("No data")
-        return
-    
-    print(json.dumps(result, indent=4))
+    result = get_playlists_api(client=client)    
+    print(json.dumps(result.model_dump(), indent=4))

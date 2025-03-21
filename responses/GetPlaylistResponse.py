@@ -6,6 +6,7 @@ class GetPlaylistSubsonicSuccessResponse(SubsonicSuccessResponse):
     playlist: Playlist
     
 class GetPlaylistSubsonicFailedResponse(SubsonicFailedResponse):
-    pass  
+    pass
+
 class GetPlaylistResponse(BaseModel):
-    subsonicResponse: GetPlaylistSubsonicFailedResponse = Field(validation_alias=AliasPath('subsonic-response'))
+    subsonicResponse: GetPlaylistSubsonicSuccessResponse | GetPlaylistSubsonicFailedResponse = Field(validation_alias=AliasPath('subsonic-response'))
