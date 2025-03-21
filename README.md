@@ -19,6 +19,18 @@ uv run main.py --help
 
 Follow the output of the cli for available commands.
 
+## Use as a library
+
+TODO
+
+```python
+from lib.client import generate_client
+from lib.api.get_playlists import get_playlists
+client = generate_client("http://localhost:4040", "admin", "admin")
+
+get_playlists(client=client)
+```
+
 ## Structure
 
 ### CLI
