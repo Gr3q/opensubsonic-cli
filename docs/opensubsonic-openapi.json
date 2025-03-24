@@ -1,5 +1,5 @@
 {
-    "openapi": "3.1.1",
+    "openapi": "3.0.0",
     "info": {
         "title": "OpenSubsonic API",
         "version": "1.16.1"
@@ -114,9 +114,57 @@
                     },
                     {
                         "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rest/createBookmark": {
+            "get": {
+                "summary": "Creates or updates a bookmark.",
+                "description": "Creates or updates a bookmark (a position within a media file). Bookmarks are personal and not visible to other users.",
+                "tags": [
+                    "Bookmarks"
+                ],
+                "operationId": "createBookmark",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of the media file to bookmark. If a bookmark already exists for this file it will be overwritten.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "$ref": "#/components/parameters/p"
+                        "name": "position",
+                        "in": "query",
+                        "description": "The position (in milliseconds) within the media file.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "A user-defined comment.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "$ref": "#/components/parameters/v"
@@ -138,9 +186,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/apiKey"
-                    },
-                    {
-                        "$ref": "#/components/parameters/p"
                     }
                 ],
                 "responses": {
@@ -242,58 +287,21 @@
                 "properties": {
                     "code": {
                         "type": "integer",
-                        "anyOf": [
-                            {
-                                "const": 0,
-                                "description": "A generic error."
-                            },
-                            {
-                                "const": 10,
-                                "description": "Required parameter is missing."
-                            },
-                            {
-                                "const": 20,
-                                "description": "Incompatible Subsonic REST protocol version. Client must upgrade."
-                            },
-                            {
-                                "const": 30,
-                                "description": "Incompatible Subsonic REST protocol version. Server must upgrade."
-                            },
-                            {
-                                "const": 40,
-                                "description": "Wrong username or password."
-                            },
-                            {
-                                "const": 41,
-                                "description": "Token authentication not supported for LDAP users."
-                            },
-                            {
-                                "const": 42,
-                                "description": "Provided authentication mechanism not supported."
-                            },
-                            {
-                                "const": 43,
-                                "description": "Multiple conflicting authentication mechanisms provided."
-                            },
-                            {
-                                "const": 44,
-                                "description": "Invalid API key."
-                            },
-                            {
-                                "const": 50,
-                                "description": "User is not authorized for the given operation."
-                            },
-                            {
-                                "const": 60,
-                                "description": "The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium. Visit subsonic.org for details."
-                            },
-                            {
-                                "const": 70,
-                                "description": "The requested data was not found."
-                            }
+                        "enum": [
+                            0,
+                            10,
+                            20,
+                            30,
+                            40,
+                            41,
+                            42,
+                            43,
+                            44,
+                            50,
+                            60,
+                            70
                         ],
-                        "description": "The error code",
-                        "unevaluatedProperties": false
+                        "description": "The error code.\n* 0: A generic error.\n* 10: Required parameter is missing.\n* 20: Incompatible Subsonic REST protocol version. Client must upgrade.\n* 30: Incompatible Subsonic REST protocol version. Server must upgrade.\n* 40: Wrong username or password.\n* 41: Token authentication not supported for LDAP users.\n* 42: Provided authentication mechanism not supported.\n* 43: Multiple conflicting authentication mechanisms provided.\n* 44: Invalid API key.\n* 50: User is not authorized for the given operation.\n* 60: The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium. Visit subsonic.org for details.\n* 70: The requested data was not found."
                     },
                     "message": {
                         "type": "string",
@@ -306,8 +314,7 @@
                 },
                 "required": [
                     "code"
-                ],
-                "unevaluatedProperties": false
+                ]
             },
             "SubsonicBaseResponse": {
                 "type": "object",
@@ -334,8 +341,7 @@
                     "type",
                     "serverVersion",
                     "openSubsonic"
-                ],
-                "unevaluatedProperties": false
+                ]
             },
             "SubsonicSuccessResponse": {
                 "allOf": [
@@ -355,8 +361,7 @@
                         },
                         "required": [
                             "status"
-                        ],
-                        "unevaluatedProperties": false
+                        ]
                     }
                 ]
             },
@@ -382,8 +387,7 @@
                         "required": [
                             "status",
                             "error"
-                        ],
-                        "unevaluatedProperties": false
+                        ]
                     }
                 ]
             },
