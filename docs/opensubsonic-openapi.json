@@ -13,7 +13,11 @@
         "/rest/addChatMessage": {
             "get": {
                 "summary": "Adds a message to the chat log.",
+                "description": "Adds a message to the chat log.",
                 "operationId": "addChatMessage",
+                "tags": [
+                    "Chat"
+                ],
                 "parameters": [
                     {
                         "name": "message",
@@ -23,6 +27,96 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/p"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rest/changePassword": {
+            "get": {
+                "summary": "Changes the password of an existing user on the server.",
+                "description": "Changes the password of an existing user on the server, using the following parameters. You can only change your own password unless you have admin privileges.",
+                "tags": [
+                    "User Management"
+                ],
+                "operationId": "changePassword",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "The name of the user which should change its password.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "The new password of the new user, either in clear text of hex-encoded (see above).",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/p"
                     },
                     {
                         "$ref": "#/components/parameters/v"
@@ -148,21 +242,58 @@
                 "properties": {
                     "code": {
                         "type": "integer",
-                        "enum": [
-                            0,
-                            10,
-                            20,
-                            30,
-                            40,
-                            41,
-                            42,
-                            43,
-                            44,
-                            50,
-                            60,
-                            70
+                        "anyOf": [
+                            {
+                                "const": 0,
+                                "description": "A generic error."
+                            },
+                            {
+                                "const": 10,
+                                "description": "Required parameter is missing."
+                            },
+                            {
+                                "const": 20,
+                                "description": "Incompatible Subsonic REST protocol version. Client must upgrade."
+                            },
+                            {
+                                "const": 30,
+                                "description": "Incompatible Subsonic REST protocol version. Server must upgrade."
+                            },
+                            {
+                                "const": 40,
+                                "description": "Wrong username or password."
+                            },
+                            {
+                                "const": 41,
+                                "description": "Token authentication not supported for LDAP users."
+                            },
+                            {
+                                "const": 42,
+                                "description": "Provided authentication mechanism not supported."
+                            },
+                            {
+                                "const": 43,
+                                "description": "Multiple conflicting authentication mechanisms provided."
+                            },
+                            {
+                                "const": 44,
+                                "description": "Invalid API key."
+                            },
+                            {
+                                "const": 50,
+                                "description": "User is not authorized for the given operation."
+                            },
+                            {
+                                "const": 60,
+                                "description": "The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium. Visit subsonic.org for details."
+                            },
+                            {
+                                "const": 70,
+                                "description": "The requested data was not found."
+                            }
                         ],
-                        "description": "The error code"
+                        "description": "The error code",
+                        "unevaluatedProperties": false
                     },
                     "message": {
                         "type": "string",
@@ -175,7 +306,8 @@
                 },
                 "required": [
                     "code"
-                ]
+                ],
+                "unevaluatedProperties": false
             },
             "SubsonicBaseResponse": {
                 "type": "object",
@@ -202,7 +334,8 @@
                     "type",
                     "serverVersion",
                     "openSubsonic"
-                ]
+                ],
+                "unevaluatedProperties": false
             },
             "SubsonicSuccessResponse": {
                 "allOf": [
@@ -222,7 +355,8 @@
                         },
                         "required": [
                             "status"
-                        ]
+                        ],
+                        "unevaluatedProperties": false
                     }
                 ]
             },
@@ -248,7 +382,8 @@
                         "required": [
                             "status",
                             "error"
-                        ]
+                        ],
+                        "unevaluatedProperties": false
                     }
                 ]
             },
