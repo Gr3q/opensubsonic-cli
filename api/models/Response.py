@@ -1,7 +1,7 @@
 from typing import Literal
 from pydantic import AliasPath, BaseModel, Field
 
-from models.Error import SubsonicError
+from api.models.Error import SubsonicError
 class SubsonicBaseResponse(BaseModel):
     version: str
     type: str

@@ -1,4 +1,4 @@
-from lib.auth import generate_token
+from api.auth import generate_token
 CLIENT: str = "navidrome-utils"
 VERSION: str = "1.13.1"
 

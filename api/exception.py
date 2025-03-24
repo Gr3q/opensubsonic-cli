@@ -1,6 +1,6 @@
 from typing import override
 from httpx import Response
-from models.Error import SubsonicError
+from api.models.Error import SubsonicError
 
 class BadHTTPResponse(Exception):
     def __init__(self, response: Response) -> None:

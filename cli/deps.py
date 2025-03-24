@@ -1,7 +1,7 @@
 from httpx import Client
 import typer
 
-from lib.client import generate_client
+from api.client import generate_client
 
 
 def http_client(

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from models.Child import Child
+from api.models.Child import Child
 
 class Playlist(BaseModel):
     id: str

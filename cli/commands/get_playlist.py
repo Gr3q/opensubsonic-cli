@@ -1,7 +1,7 @@
 import json
 from httpx import Client
 from typer_di import Depends, TyperDI
-from lib.api.get_playlist import get_playlist as get_playlist_api
+from api.calls.get_playlist import get_playlist as get_playlist_api
 from cli.deps import http_client
 
 get_playlist_typer = TyperDI()

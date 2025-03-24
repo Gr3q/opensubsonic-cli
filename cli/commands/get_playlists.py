@@ -3,7 +3,7 @@ from httpx import Client
 from typer_di import Depends, TyperDI
 
 from cli.deps import http_client
-from lib.api.get_playlists import get_playlists as get_playlists_api
+from api.calls.get_playlists import get_playlists as get_playlists_api
 
 get_playlists_typer = TyperDI()
 

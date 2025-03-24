@@ -5,8 +5,8 @@ from typing import Any
 from httpx import Client
 from pydantic import ValidationError
 
-from lib.exception import BadHTTPResponse, SubsonicException
-from models.Response import Response
+from api.exception import BadHTTPResponse, SubsonicException
+from api.models.Response import Response
 
 
 def star(

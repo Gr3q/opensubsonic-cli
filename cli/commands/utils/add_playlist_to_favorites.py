@@ -2,8 +2,8 @@ from httpx import Client
 from typer_di import Depends, TyperDI
 
 from cli.deps import http_client
-from lib.api.get_playlist import get_playlist as get_playlist_api
-from lib.api.star import star
+from api.calls.get_playlist import get_playlist as get_playlist_api
+from api.calls.star import star
 
 add_playlist_to_favorites_typer = TyperDI()
 

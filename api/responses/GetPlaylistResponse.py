@@ -1,6 +1,6 @@
 from pydantic import AliasPath, BaseModel, Field
-from models.Playlist import Playlist
-from models.Response import SubsonicFailedResponse, SubsonicSuccessResponse
+from api.models.Playlist import Playlist
+from api.models.Response import SubsonicFailedResponse, SubsonicSuccessResponse
 
 class GetPlaylistSubsonicSuccessResponse(SubsonicSuccessResponse):
     playlist: Playlist

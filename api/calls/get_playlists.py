@@ -1,23 +1,20 @@
+
+
 from json import JSONDecodeError
 from typing import Any
 from httpx import Client
 from pydantic import ValidationError
 
-from lib.exception import BadHTTPResponse, SubsonicException
-from models.Playlist import Playlist
-from responses.GetPlaylistResponse import GetPlaylistResponse
+from api.exception import BadHTTPResponse, SubsonicException
+from api.models.Playlists import Playlists
+from api.responses.GetPlaylistsResponse import GetPlaylistsResponse
 
-
-def get_playlist(
-    id: str,
-    *,
-    client: Client,
-) -> Playlist:
+def get_playlists(
+    client: Client
+) -> Playlists:
+    ''' Get all playlists you have access to. '''
     response = client.get(
-        "/rest/getPlaylist",
-        params={
-            "id": id
-        }
+        f"/rest/getPlaylists",
     )
     
     if (response.status_code != 200):
@@ -25,10 +22,10 @@ def get_playlist(
     
     try:
         data: Any = response.json()
-        result = GetPlaylistResponse(**data)
+        result = GetPlaylistsResponse(**data)
         if (result.subsonicResponse.status == "failed"):
             raise SubsonicException(result.subsonicResponse.error)
-        return result.subsonicResponse.playlist
+        return result.subsonicResponse.playlists
 
     except JSONDecodeError as e:
         raise e
