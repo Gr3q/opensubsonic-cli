@@ -1,0 +1,267 @@
+{
+    "openapi": "3.1.1",
+    "info": {
+        "title": "OpenSubsonic API",
+        "version": "1.16.1"
+    },
+    "servers": [
+        {
+            "url": "https://api.server.test/v1"
+        }
+    ],
+    "paths": {
+        "/rest/addChatMessage": {
+            "get": {
+                "summary": "Adds a message to the chat log.",
+                "operationId": "addChatMessage",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "description": "The chat message.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    },
+                    {
+                        "$ref": "#/components/parameters/p"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "v": {
+                "name": "v",
+                "description": "The protocol version implemented by the client, i.e., the version of the subsonic-rest-api.xsd schema used (see below).",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "f": {
+                "name": "f",
+                "description": "The response format. Must be 'xml' or 'json'. For the purposes of this document, only 'json' is described.",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "json"
+                    ]
+                }
+            },
+            "c": {
+                "name": "c",
+                "description": "A unique string identifying the client application.",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "u": {
+                "name": "u",
+                "description": "The username.",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "t": {
+                "name": "t",
+                "description": "(Since 1.13.0) The authentication token computed as md5(password + salt). `u` and `s` must be specified. See https://opensubsonic.netlify.app/docs/api-reference/#authentication for details.",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "s": {
+                "name": "s",
+                "description": "(Since 1.13.0) A random string (“salt”) used as input for computing the password hash. `u` and `t` must be specified. See https://opensubsonic.netlify.app/docs/api-reference/#authentication for details.",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "apiKey": {
+                "name": "apiKey",
+                "description": "[OS] An API key used for authentication. If specified, `p`, `t`, `s` nor `u` can be specified.",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "p": {
+                "name": "p",
+                "description": "The password, either in clear text or hex-encoded with a “enc:” prefix. Since 1.13.0 this should only be used for testing purposes. `u` must be specified.",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas": {
+            "SubsonicError": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            10,
+                            20,
+                            30,
+                            40,
+                            41,
+                            42,
+                            43,
+                            44,
+                            50,
+                            60,
+                            70
+                        ],
+                        "description": "The error code"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The optional error message"
+                    },
+                    "helpUrl": {
+                        "type": "string",
+                        "description": "A URL (documentation, configuration, etc) which may provide additional context for the error)"
+                    }
+                },
+                "required": [
+                    "code"
+                ]
+            },
+            "SubsonicBaseResponse": {
+                "type": "object",
+                "properties": {
+                    "version": {
+                        "type": "string",
+                        "description": "The server supported Subsonic API version."
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The server actual name. [Ex: Navidrome or gonic]"
+                    },
+                    "serverVersion": {
+                        "type": "string",
+                        "description": "The server version."
+                    },
+                    "openSubsonic": {
+                        "type": "boolean",
+                        "description": "Must return true if the server support OpenSubsonic API v1"
+                    }
+                },
+                "required": [
+                    "version",
+                    "type",
+                    "serverVersion",
+                    "openSubsonic"
+                ]
+            },
+            "SubsonicSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicBaseResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "description": "The status of the request. [Ex: success]",
+                                "enum": [
+                                    "success"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "status"
+                        ]
+                    }
+                ]
+            },
+            "SubsonicFailureResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicBaseResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "description": "The status of the request. [Ex: failed]",
+                                "enum": [
+                                    "failed"
+                                ]
+                            },
+                            "error": {
+                                "$ref": "#/components/schemas/SubsonicError"
+                            }
+                        },
+                        "required": [
+                            "status",
+                            "error"
+                        ]
+                    }
+                ]
+            },
+            "SubsonicResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            }
+        }
+    }
+}
