@@ -320,11 +320,14 @@
                     {
                         "name": "songId",
                         "in": "query",
-                        "description": "D of a song in the playlist. Use one `songId` parameter for each song in the playlist.",
+                        "description": "ID of a song in the playlist. Use one `songId` parameter for each song in the playlist.",
                         "explode": true,
                         "style": "form",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     {
@@ -371,6 +374,7 @@
             "get": {
                 "summary": "Adds a new Podcast channel.",
                 "description": "Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).",
+                "operationId": "createPodcastChannel",
                 "tags": [
                     "Podcast"
                 ],
@@ -412,7 +416,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PlaylistResponse"
+                                    "$ref": "#/components/schemas/SubsonicResponse"
                                 }
                             }
                         }
@@ -421,6 +425,87 @@
                 "externalDocs": {
                     "description": "createPodcastChannel",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/createpodcastchannel/"
+                }
+            }
+        },
+        "/rest/createShare": {
+            "get": {
+                "summary": "Creates a public URL that can be used by anyone to stream music or video from the server.",
+                "description": "Creates a public URL that can be used by anyone to stream music or video from the server. The URL is short and suitable for posting on Facebook, Twitter etc. Note: The user must be authorized to share (see Settings > Users > User is allowed to share files with anyone). Since 1.6.0.",
+                "operationId": "createShare",
+                "tags": [
+                    "Sharing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of a song, album or video to share. Use one id parameter for each entry to share.",
+                        "explode": true,
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "A user-defined description that will be displayed to people visiting the shared media.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expires",
+                        "in": "query",
+                        "description": "The time at which the share expires. Given as milliseconds since 1970.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SharesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "createShare",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createshare/"
                 }
             }
         }
@@ -1330,6 +1415,239 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/PlaylistSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "Share": {
+                "type": "object",
+                "description": "Share.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The share Id"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The share url"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "The username"
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Creation date [ISO 8601]"
+                    },
+                    "expires": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Share expiration [ISO 8601]"
+                    },
+                    "lastVisited": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Last visit [ISO 8601]"
+                    },
+                    "visitCount": {
+                        "type": "integer",
+                        "description": "Visit count"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "A list of share"
+                    }
+                },
+                "required": [
+                    "id",
+                    "url",
+                    "username",
+                    "created",
+                    "visitCount"
+                ],
+                "example": {
+                    "id": "12",
+                    "url": "http://localhost:8989/share.php?id=12&secret=fXlKyEv3",
+                    "description": "Forget and Remember (Comfort Fit)",
+                    "username": "user",
+                    "created": "2023-03-16T04:13:09+00:00",
+                    "visitCount": 0,
+                    "entry": [
+                        {
+                            "id": "300000116",
+                            "parent": "200000021",
+                            "title": "Can I Help U?",
+                            "isDir": false,
+                            "isVideo": false,
+                            "type": "music",
+                            "albumId": "200000021",
+                            "album": "Forget and Remember",
+                            "artistId": "100000036",
+                            "artist": "Comfort Fit",
+                            "coverArt": "300000116",
+                            "duration": 103,
+                            "bitRate": 216,
+                            "bitDepth": 16,
+                            "samplingRate": 44100,
+                            "channelCount": 2,
+                            "track": 1,
+                            "year": 2005,
+                            "genre": "Hip-Hop",
+                            "size": 2811819,
+                            "discNumber": 1,
+                            "suffix": "mp3",
+                            "contentType": "audio/mpeg",
+                            "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
+                        },
+                        {
+                            "id": "300000121",
+                            "parent": "200000021",
+                            "title": "Planetary Picknick",
+                            "isDir": false,
+                            "isVideo": false,
+                            "type": "music",
+                            "albumId": "200000021",
+                            "album": "Forget and Remember",
+                            "artistId": "100000036",
+                            "artist": "Comfort Fit",
+                            "coverArt": "300000121",
+                            "duration": 358,
+                            "bitRate": 238,
+                            "bitDepth": 16,
+                            "samplingRate": 44100,
+                            "channelCount": 2,
+                            "track": 2,
+                            "year": 2005,
+                            "genre": "Hip-Hop",
+                            "size": 10715592,
+                            "discNumber": 1,
+                            "suffix": "mp3",
+                            "contentType": "audio/mpeg",
+                            "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
+                        }
+                    ]
+                },
+                "externalDocs": {
+                    "description": "Share",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/share/"
+                }
+            },
+            "Shares": {
+                "type": "object",
+                "description": "Shares.",
+                "properties": {
+                    "share": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Share"
+                        },
+                        "description": "A list of share"
+                    }
+                },
+                "example": {
+                    "share": [
+                        {
+                            "id": "12",
+                            "url": "http://localhost:8989/share.php?id=12&secret=fXlKyEv3",
+                            "description": "Forget and Remember (Comfort Fit)",
+                            "username": "user",
+                            "created": "2023-03-16T04:13:09+00:00",
+                            "visitCount": 0,
+                            "entry": [
+                                {
+                                    "id": "300000116",
+                                    "parent": "200000021",
+                                    "title": "Can I Help U?",
+                                    "isDir": false,
+                                    "isVideo": false,
+                                    "type": "music",
+                                    "albumId": "200000021",
+                                    "album": "Forget and Remember",
+                                    "artistId": "100000036",
+                                    "artist": "Comfort Fit",
+                                    "coverArt": "300000116",
+                                    "duration": 103,
+                                    "bitRate": 216,
+                                    "bitDepth": 16,
+                                    "samplingRate": 44100,
+                                    "channelCount": 2,
+                                    "track": 1,
+                                    "year": 2005,
+                                    "genre": "Hip-Hop",
+                                    "size": 2811819,
+                                    "discNumber": 1,
+                                    "suffix": "mp3",
+                                    "contentType": "audio/mpeg",
+                                    "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
+                                },
+                                {
+                                    "id": "300000121",
+                                    "parent": "200000021",
+                                    "title": "Planetary Picknick",
+                                    "isDir": false,
+                                    "isVideo": false,
+                                    "type": "music",
+                                    "albumId": "200000021",
+                                    "album": "Forget and Remember",
+                                    "artistId": "100000036",
+                                    "artist": "Comfort Fit",
+                                    "coverArt": "300000121",
+                                    "duration": 358,
+                                    "bitRate": 238,
+                                    "bitDepth": 16,
+                                    "samplingRate": 44100,
+                                    "channelCount": 2,
+                                    "track": 2,
+                                    "year": 2005,
+                                    "genre": "Hip-Hop",
+                                    "size": 10715592,
+                                    "discNumber": 1,
+                                    "suffix": "mp3",
+                                    "contentType": "audio/mpeg",
+                                    "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "externalDocs": {
+                    "description": "Shares",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/shares/"
+                }
+            },
+            "SharesSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "shares": {
+                                "$ref": "#/components/schemas/Shares"
+                            }
+                        },
+                        "required": [
+                            "shares"
+                        ],
+                        "description": "A subsonic-response element with a nested shares element on success. Which in turns contains a single share element for the newly created share"
+                    }
+                ]
+            },
+            "SharesResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SharesSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
