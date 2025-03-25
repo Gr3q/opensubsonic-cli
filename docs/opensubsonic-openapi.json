@@ -728,6 +728,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/createuser/"
                 }
             }
+        },
+        "/rest/deleteBookmark": {
+            "get": {
+                "summary": "Deletes a bookmark.",
+                "description": "Deletes a bookmark (a position within a media file). Bookmarks are personal and not visible to other users.",
+                "operationId": "deleteBookmark",
+                "tags": [
+                    "Bookmarks"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of the media file for which to delete the bookmark. Other users\u2019 bookmarks are not affected.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteBookmark",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deletebookmark/"
+                }
+            }
         }
     },
     "components": {
