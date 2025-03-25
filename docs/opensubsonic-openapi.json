@@ -844,6 +844,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteinternetradiostation/"
                 }
             }
+        },
+        "/rest/deletePlaylist": {
+            "get": {
+                "summary": "Deletes a saved playlist.",
+                "description": "Deletes a saved playlist.",
+                "operationId": "deletePlaylist",
+                "tags": [
+                    "Playlists"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of the playlist to delete, as obtained by `getPlaylists`.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "deletePlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteplaylist/"
+                }
+            }
         }
     },
     "components": {
