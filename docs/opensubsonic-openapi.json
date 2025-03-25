@@ -64,6 +64,10 @@
                             }
                         }
                     }
+                },
+                "externalDocs": {
+                    "description": "addChatMessage",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/addchatmessage/"
                 }
             }
         },
@@ -127,6 +131,10 @@
                             }
                         }
                     }
+                },
+                "externalDocs": {
+                    "description": "changePassword",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/changepassword/"
                 }
             }
         },
@@ -199,6 +207,10 @@
                             }
                         }
                     }
+                },
+                "externalDocs": {
+                    "description": "createBookmark",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createbookmark/"
                 }
             }
         },
@@ -271,6 +283,10 @@
                             }
                         }
                     }
+                },
+                "externalDocs": {
+                    "description": "createInternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createinternetradiostation/"
                 }
             }
         },
@@ -344,6 +360,67 @@
                             }
                         }
                     }
+                },
+                "externalDocs": {
+                    "description": "createPlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createplaylist/"
+                }
+            }
+        },
+        "/rest/createPodcastChannel": {
+            "get": {
+                "summary": "Adds a new Podcast channel.",
+                "description": "Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).",
+                "tags": [
+                    "Podcast"
+                ],
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "The URL of the Podcast to add.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaylistResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "createPodcastChannel",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createpodcastchannel/"
                 }
             }
         }
