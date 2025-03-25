@@ -1213,6 +1213,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbum/"
                 }
             }
+        },
+        "/rest/getAlbumInfo": {
+            "get": {
+                "summary": "Returns album info.",
+                "description": "Returns album notes, image URLs etc, using data from last.fm.",
+                "operationId": "getAlbumInfo",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The album ID or song ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumInfoResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo/"
+                }
+            }
         }
     },
     "components": {
@@ -2729,6 +2787,65 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/SuccessAlbumResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "AlbumInfo": {
+                "type": "object",
+                "description": "Album info.",
+                "properties": {
+                    "notes": {
+                        "type": "string",
+                        "description": "Album notes"
+                    },
+                    "musicBrainzId": {
+                        "type": "string",
+                        "description": "Album musicBrainzId"
+                    },
+                    "lastFmUrl": {
+                        "type": "string",
+                        "description": "Album lastFmUrl"
+                    },
+                    "smallImageUrl": {
+                        "type": "string",
+                        "description": "Album smallImageUrl"
+                    },
+                    "mediumImageUrl": {
+                        "type": "string",
+                        "description": "Album mediumImageUrl"
+                    },
+                    "largeImageUrl": {
+                        "type": "string",
+                        "description": "Album largeImageUrl"
+                    }
+                }
+            },
+            "SuccessAlbumInfoResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "albumInfo": {
+                                "$ref": "#/components/schemas/AlbumInfo"
+                            }
+                        },
+                        "required": [
+                            "albumInfo"
+                        ],
+                        "description": "A subsonic-response element with a nested albumInfo element on success."
+                    }
+                ]
+            },
+            "AlbumInfoResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessAlbumInfoResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
