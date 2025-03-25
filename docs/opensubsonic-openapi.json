@@ -786,6 +786,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deletebookmark/"
                 }
             }
+        },
+        "/rest/deleteInternetRadioStation": {
+            "get": {
+                "summary": "Deletes an existing internet radio station.",
+                "description": "Deletes an existing internet radio station. Only users with admin privileges are allowed to call this method.",
+                "operationId": "deleteInternetRadioStation",
+                "tags": [
+                    "Internet Radio"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The ID for the station.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteInternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteinternetradiostation/"
+                }
+            }
         }
     },
     "components": {
