@@ -1155,6 +1155,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/downloadpodcastepisode/"
                 }
             }
+        },
+        "/rest/getAlbum": {
+            "get": {
+                "summary": "Returns details for an album.",
+                "description": "Returns details for an album, including a list of songs. This method organizes music according to ID3 tags.",
+                "operationId": "getAlbum",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The album ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbum",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbum/"
+                }
+            }
         }
     },
     "components": {
@@ -2307,6 +2365,370 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/SharesSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "RecordLabel": {
+                "type": "object",
+                "description": "A record label for an album.",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "ItemDate": {
+                "type": "object",
+                "description": "A date for a media item that may be just a year, or year-month, or full date.",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "description": "The year"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "description": "The month (1-12)",
+                        "minimum": 1,
+                        "maximum": 12
+                    },
+                    "day": {
+                        "type": "integer",
+                        "description": "The day (1-31)",
+                        "minimum": 1,
+                        "maximum": 31
+                    }
+                }
+            },
+            "DiscTitle": {
+                "type": "object",
+                "description": "A disc title for an album",
+                "properties": {
+                    "disc": {
+                        "type": "integer",
+                        "description": "The disc number."
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The name of the disc."
+                    }
+                },
+                "required": [
+                    "disc",
+                    "title"
+                ]
+            },
+            "AlbumID3WithSongs": {
+                "type": "object",
+                "description": "Album with songs.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The id of the album"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The album name."
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "The album version name (Remastered, Anniversary Box Set, …)."
+                    },
+                    "artist": {
+                        "type": "string",
+                        "description": "Artist name."
+                    },
+                    "artistId": {
+                        "type": "string",
+                        "description": "The id of the artist"
+                    },
+                    "coverArt": {
+                        "type": "string",
+                        "description": "A covertArt id."
+                    },
+                    "songCount": {
+                        "type": "integer",
+                        "description": "Number of songs"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "description": "Total duration of the album in seconds"
+                    },
+                    "playCount": {
+                        "type": "integer",
+                        "description": "Number of play of the album"
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Date the album was added. [ISO 8601]"
+                    },
+                    "starred": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Date the album was added. [ISO 8601]"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "description": "The album year"
+                    },
+                    "genre": {
+                        "type": "string",
+                        "description": "The album genre"
+                    },
+                    "played": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Date the album was last played. [ISO 8601]"
+                    },
+                    "userRating": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 5,
+                        "description": "The user rating of the album. [1-5]"
+                    },
+                    "recordLabels": {
+                        "type": "array",
+                        "description": "The labels producing the album.",
+                        "items": {
+                            "$ref": "#/components/schemas/RecordLabel"
+                        }
+                    },
+                    "musicBrainzId": {
+                        "type": "string",
+                        "description": "The album MusicBrainzID."
+                    },
+                    "genres": {
+                        "type": "array",
+                        "description": "The list of all genres of the album.",
+                        "items": {
+                            "$ref": "#/components/schemas/ItemGenre"
+                        }
+                    },
+                    "artists": {
+                        "type": "array",
+                        "description": "The list of all album artists of the album.",
+                        "items": {
+                            "$ref": "#/components/schemas/ArtistID3"
+                        }
+                    },
+                    "displayArtist": {
+                        "type": "string",
+                        "description": "The single value display artist."
+                    },
+                    "releaseTypes": {
+                        "type": "array",
+                        "description": "The types of this album release. (Album, Compilation, EP, Remix, …).",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "moods": {
+                        "type": "array",
+                        "description": "The list of all moods of the album.",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "sortName": {
+                        "type": "string",
+                        "description": "The album sort name."
+                    },
+                    "originalReleaseDate": {
+                        "$ref": "#/components/schemas/ItemDate",
+                        "description": "Date the album was originally released."
+                    },
+                    "releaseDate": {
+                        "$ref": "#/components/schemas/ItemDate",
+                        "description": "Date the specific edition of the album was released. Note: for files using ID3 tags, releaseDate should generally be read from the TDRL tag. Servers that use a different source for this field should document the behavior."
+                    },
+                    "isCompilation": {
+                        "type": "boolean",
+                        "description": "True if the album is a compilation."
+                    },
+                    "explicitStatus": {
+                        "$ref": "#/components/schemas/ExplicitStatus"
+                    },
+                    "discTitles": {
+                        "type": "array",
+                        "description": "The list of all disc titles of the album.",
+                        "items": {
+                            "$ref": "#/components/schemas/DiscTitle"
+                        }
+                    },
+                    "song": {
+                        "type": "array",
+                        "description": "The list of songs",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "songCount",
+                    "duration",
+                    "created"
+                ],
+                "example": {
+                    "id": "ad0f112b6dcf83de5e9cae85d07f0d35",
+                    "name": "8-bit lagerfeuer",
+                    "version": "Deluxe Edition",
+                    "artist": "pornophonique",
+                    "year": 2007,
+                    "coverArt": "al-ad0f112b6dcf83de5e9cae85d07f0d35_640a93a8",
+                    "starred": "2023-03-22T01:51:06Z",
+                    "duration": 1954,
+                    "playCount": 97,
+                    "genre": "Hip-Hop",
+                    "created": "2023-03-10T02:19:35.784818075Z",
+                    "artistId": "91c3901ac465b9efc439e4be4270c2b6",
+                    "songCount": 8,
+                    "played": "2023-03-28T00:45:13Z",
+                    "userRating": 4,
+                    "recordLabels": [
+                        {
+                            "name": "Sony"
+                        }
+                    ],
+                    "musicBrainzId": "189002e7-3285-4e2e-92a3-7f6c30d407a2",
+                    "genres": [
+                        {
+                            "name": "Hip-Hop"
+                        },
+                        {
+                            "name": "East coast"
+                        }
+                    ],
+                    "artists": [
+                        {
+                            "id": "ar-1",
+                            "name": "Artist 1"
+                        },
+                        {
+                            "id": "ar-2",
+                            "name": "Artist 2"
+                        }
+                    ],
+                    "displayArtist": "Artist 1 feat. Artist 2",
+                    "releaseTypes": [
+                        "Album",
+                        "Remixes"
+                    ],
+                    "moods": [
+                        "slow",
+                        "cool"
+                    ],
+                    "sortName": "lagerfeuer (8-bit)",
+                    "originalReleaseDate": {
+                        "year": 2001,
+                        "month": 3,
+                        "day": 10
+                    },
+                    "releaseDate": {
+                        "year": 2001,
+                        "month": 3,
+                        "day": 10
+                    },
+                    "isCompilation": false,
+                    "explicitStatus": "explicit",
+                    "discTitles": [
+                        {
+                            "disc": 0,
+                            "title": "Disc 0 title"
+                        },
+                        {
+                            "disc": 2,
+                            "title": "Disc 1 title"
+                        }
+                    ],
+                    "song": [
+                        {
+                            "id": "300000116",
+                            "parent": "200000021",
+                            "title": "Can I Help U?",
+                            "isDir": false,
+                            "isVideo": false,
+                            "type": "music",
+                            "albumId": "200000021",
+                            "album": "Forget and Remember",
+                            "artistId": "100000036",
+                            "artist": "Comfort Fit",
+                            "coverArt": "300000116",
+                            "duration": 103,
+                            "bitRate": 216,
+                            "bitDepth": 16,
+                            "samplingRate": 44100,
+                            "channelCount": 2,
+                            "track": 1,
+                            "year": 2005,
+                            "genre": "Hip-Hop",
+                            "size": 2811819,
+                            "discNumber": 1,
+                            "suffix": "mp3",
+                            "explicitStatus": "explicit",
+                            "contentType": "audio/mpeg",
+                            "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
+                        },
+                        {
+                            "id": "300000121",
+                            "parent": "200000021",
+                            "title": "Planetary Picknick",
+                            "isDir": false,
+                            "isVideo": false,
+                            "type": "music",
+                            "albumId": "200000021",
+                            "album": "Forget and Remember",
+                            "artistId": "100000036",
+                            "artist": "Comfort Fit",
+                            "coverArt": "300000121",
+                            "duration": 358,
+                            "bitRate": 238,
+                            "bitDepth": 16,
+                            "samplingRate": 44100,
+                            "channelCount": 2,
+                            "track": 2,
+                            "year": 2005,
+                            "genre": "Hip-Hop",
+                            "size": 10715592,
+                            "discNumber": 1,
+                            "suffix": "mp3",
+                            "explicitStatus": "clean",
+                            "contentType": "audio/mpeg",
+                            "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
+                        }
+                    ]
+                }
+            },
+            "SuccessAlbumResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "album": {
+                                "$ref": "#/components/schemas/AlbumID3WithSongs"
+                            }
+                        },
+                        "required": [
+                            "album"
+                        ],
+                        "description": "A subsonic-response element with a nested album element on success."
+                    }
+                ]
+            },
+            "AlbumResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessAlbumResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
