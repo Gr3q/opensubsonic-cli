@@ -1076,6 +1076,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteshare/"
                 }
             }
+        },
+        "/rest/deleteUser": {
+            "get": {
+                "summary": "Deletes an existing user on the server.",
+                "description": "Deletes an existing user on the server.",
+                "operationId": "deleteUser",
+                "tags": [
+                    "User Management"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "The name of the user to delete.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubsonicResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteUser",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteuser/"
+                }
+            }
         }
     },
     "components": {
