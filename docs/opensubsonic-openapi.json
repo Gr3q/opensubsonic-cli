@@ -1271,6 +1271,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo/"
                 }
             }
+        },
+        "/rest/getAlbumInfo2": {
+            "get": {
+                "summary": "Returns album info (v2).",
+                "description": "Similar to getAlbumInfo, but organizes music according to ID3 tags.",
+                "operationId": "getAlbumInfo2",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The album ID or song ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumInfoResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumInfo2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo2/"
+                }
+            }
         }
     },
     "components": {
