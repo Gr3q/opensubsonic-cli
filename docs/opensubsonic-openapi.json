@@ -1561,6 +1561,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist2/"
                 }
             }
+        },
+        "/rest/getArtist": {
+            "get": {
+                "summary": "Returns details for an artist.",
+                "description": "Returns details for an artist, including a list of albums. This method organizes music according to ID3 tags.",
+                "operationId": "getArtist",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The artist ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetArtistResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getArtist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartist/"
+                }
+            }
         }
     },
     "components": {
@@ -2632,7 +2690,11 @@
                         },
                         "required": [
                             "song"
-                        ]
+                        ],
+                        "externalDocs": {
+                            "description": "AlbumID3WithSongs",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/albumid3withsongs/"
+                        }
                     }
                 ]
             },
@@ -2817,6 +2879,61 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetAlbumList2SuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "ArtistWithAlbumsID3": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ArtistID3"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "album": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/AlbumID3"
+                                },
+                                "description": "Artist albums"
+                            }
+                        },
+                        "required": [
+                            "album"
+                        ],
+                        "externalDocs": {
+                            "description": "ArtistWithAlbumsID3",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/artistwithalbumsid3/"
+                        }
+                    }
+                ]
+            },
+            "GetArtistSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "artist": {
+                                "$ref": "#/components/schemas/ArtistWithAlbumsID3"
+                            }
+                        },
+                        "required": [
+                            "artist"
+                        ],
+                        "description": "A subsonic-response element with a nested `artist` element on success."
+                    }
+                ]
+            },
+            "GetArtistResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetArtistSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
