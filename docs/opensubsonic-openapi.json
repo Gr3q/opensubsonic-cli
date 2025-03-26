@@ -1329,6 +1329,122 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo2/"
                 }
             }
+        },
+        "/rest/getAlbumList": {
+            "get": {
+                "summary": "Returns a list of random, newest, highest rated etc. albums.",
+                "description": "Returns a list of random, newest, highest rated etc. albums. Similar to the album lists on the home page of the Subsonic web interface.",
+                "operationId": "getAlbumList",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/AlbumListType"
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "The number of albums to return. Max 500.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "minimum": 1,
+                            "maximum": 500
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "The list offset. Useful if you for example want to page through the list of newest albums.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "fromYear",
+                        "in": "query",
+                        "description": "Required if `type=='byYear'`. The first year in the range. If `fromYear` > `toYear` a reverse chronological list is returned.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "toYear",
+                        "in": "query",
+                        "description": "Required if `type=='byYear'`. The last year in the range.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Required if `type=='byGenre'`. The name of the genre, e.g., “Rock”.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.11.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumListResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumList",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist/"
+                }
+            }
         }
     },
     "components": {
@@ -2904,6 +3020,64 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/SuccessAlbumInfoResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "AlbumListType": {
+                "type": "string",
+                "description": "The list type. Must be one of the following: random, newest, highest, frequent, recent. Since 1.8.0 you can also use alphabeticalByName or alphabeticalByArtist to page through all albums alphabetically, and starred to retrieve starred albums. Since 1.10.1 you can use byYear and byGenre to list albums in a given year range or genre.",
+                "enum": [
+                    "random",
+                    "newest",
+                    "highest",
+                    "frequent",
+                    "recent",
+                    "alphabeticalByName",
+                    "alphabeticalByArtist",
+                    "starred",
+                    "byYear",
+                    "byGenre"
+                ]
+            },
+            "AlbumList": {
+                "type": "object",
+                "description": "Album list.",
+                "properties": {
+                    "album": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Artist albums"
+                    }
+                }
+            },
+            "SuccessAlbumListResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "albumList": {
+                                "$ref": "#/components/schemas/AlbumList"
+                            }
+                        },
+                        "required": [
+                            "albumList"
+                        ],
+                        "description": "A subsonic-response element with a nested albumList element on success."
+                    }
+                ]
+            },
+            "AlbumListResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessAlbumListResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
