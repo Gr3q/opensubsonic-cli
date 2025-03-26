@@ -7,6 +7,7 @@
 * `deleteBookmark` summary and description is wrong
 * `download` error payload schema incomplete
 * `getArtists` page first `artists` link is broken
+* `getAvatar` `username` parameter is "required" and has a "default" as well. 
 
 ## Future Improvements
 

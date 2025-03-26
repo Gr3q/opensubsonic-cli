@@ -1086,21 +1086,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success (binary) or error (xml) response",
-                        "content": {
-                            "application/binary": {
-                                "schema": {
-                                    "type": "string",
-                                    "format": "binary"
-                                }
-                            },
-                            "text/xml": {
-                                "schema": {
-                                    "type": "object",
-                                    "description": "TODO: TO BE DESCRIBED"
-                                }
-                            }
-                        }
+                        "$ref": "#/components/responses/BinaryResponse"
                     }
                 }
             }
@@ -1835,6 +1821,56 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getartists/"
                 }
             }
+        },
+        "/rest/getAvatar": {
+            "get": {
+                "summary": "Returns the avatar (personal image) for a user.",
+                "description": "Returns the avatar (personal image) for a user.",
+                "operationId": "getAvatar",
+                "tags": [
+                    "Media Retrieval"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BinaryResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAvatar",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getavatar/"
+                }
+            }
         }
     },
     "components": {
@@ -1845,6 +1881,23 @@
                     "application/json": {
                         "schema": {
                             "$ref": "#/components/schemas/SubsonicResponse"
+                        }
+                    }
+                }
+            },
+            "BinaryResponse": {
+                "description": "Success (binary) or error (xml) response",
+                "content": {
+                    "application/binary": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    },
+                    "text/xml": {
+                        "schema": {
+                            "type": "object",
+                            "description": "Error response TODO: TO BE DESCRIBED"
                         }
                     }
                 }
