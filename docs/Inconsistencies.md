@@ -6,3 +6,7 @@
 * `downloadPodcastEpisode` return type incorrect?
 * `deleteBookmark` summary and description is wrong
 * `download` error payload schema incomplete
+
+## Future Improvements
+
+* Could use inheritance for ArtistInfo and ArtistInfo2
