@@ -1867,7 +1867,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/GetBookmarksResponse"
+                                    "$ref": "#/components/responses/BinaryResponse"
                                 }
                             }
                         }
@@ -1912,12 +1912,96 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetBookmarksResponse"
+                                }
+                            }
+                        }
                     }
                 },
                 "externalDocs": {
                     "description": "getBookmarks",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getbookmarks/"
+                }
+            }
+        },
+        "/rest/getCaptions": {
+            "get": {
+                "summary": "Returns captions (subtitles) for a video.",
+                "description": "Returns captions (subtitles) for a video. Use `getVideoInfo` to get a list of available captions.",
+                "operationId": "getCaptions",
+                "tags": [
+                    "Media Retrieval"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The ID of the video.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "Preferred captions format (“srt” or “vtt”).",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "srt",
+                                "vtt"
+                            ]
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the raw video captions.",
+                        "content": {
+                            "application/binary": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getCaptions",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getcaptions/"
                 }
             }
         }
