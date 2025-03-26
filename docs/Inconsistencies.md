@@ -5,7 +5,7 @@
 * `getAlbumInfo2` return type incorrect (based on `AlbumList`)?
 * `downloadPodcastEpisode` return type incorrect?
 * `deleteBookmark` summary and description is wrong
-* `download` error payload schema incomplete
+* `download` error payload schema missing completely
 * `getArtists` page first `artists` link is broken
 * `getAvatar` `username` parameter is "required" and has a "default" as well. 
 

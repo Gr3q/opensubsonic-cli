@@ -1863,12 +1863,61 @@
                 ],
                 "responses": {
                     "200": {
-                        "$ref": "#/components/responses/BinaryResponse"
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetBookmarksResponse"
+                                }
+                            }
+                        }
                     }
                 },
                 "externalDocs": {
                     "description": "getAvatar",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getavatar/"
+                }
+            }
+        },
+        "/rest/getBookmarks": {
+            "get": {
+                "summary": "Returns all bookmarks for this user.",
+                "description": "Returns all bookmarks for this user. A bookmark is a position within a certain media file.",
+                "operationId": "getBookmarks",
+                "tags": [
+                    "Bookmarks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getBookmarks",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getbookmarks/"
                 }
             }
         }
@@ -3464,6 +3513,95 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetArtistsSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "Bookmark": {
+                "type": "object",
+                "description": "A bookmark.",
+                "externalDocs": {
+                    "description": "Bookmark",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/bookmark/"
+                },
+                "properties": {
+                    "position": {
+                        "type": "integer",
+                        "description": "Bookmark position in seconds"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Username"
+                    },
+                    "comment": {
+                        "type": "string",
+                        "description": "Bookmark comment"
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Bookmark creation date [ISO 8601]"
+                    },
+                    "changed": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Bookmark last updated date [ISO 8601]"
+                    },
+                    "entry": {
+                        "$ref": "#/components/schemas/Child",
+                        "description": "The bookmark file"
+                    }
+                },
+                "required": [
+                    "position",
+                    "username",
+                    "created",
+                    "changed",
+                    "entry"
+                ]
+            },
+            "Bookmarks": {
+                "type": "object",
+                "description": "Bookmarks list.",
+                "externalDocs": {
+                    "description": "Bookmarks",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/bookmarks/"
+                },
+                "properties": {
+                    "bookmark": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Bookmark"
+                        },
+                        "description": "List of bookmark"
+                    }
+                }
+            },
+            "GetBookmarksSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "bookmarks": {
+                                "$ref": "#/components/schemas/Bookmarks"
+                            }
+                        },
+                        "required": [
+                            "bookmarks"
+                        ],
+                        "description": "A subsonic-response element with a nested `bookmarks` element on success."
+                    }
+                ]
+            },
+            "GetBookmarksResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetBookmarksSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
