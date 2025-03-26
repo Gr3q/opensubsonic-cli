@@ -6,6 +6,7 @@
 * `downloadPodcastEpisode` return type incorrect?
 * `deleteBookmark` summary and description is wrong
 * `download` error payload schema incomplete
+* `getArtists` page first `artists` link is broken
 
 ## Future Improvements
 
