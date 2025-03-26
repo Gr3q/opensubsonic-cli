@@ -1,11 +1,8 @@
 # Inconsistencies
 
-Between the OpenAPI.json and the official documentation
-
-* `deleteBookmark` summary and description
-* `download` error payload schema incomplete
 * `ItemDate` description and spec doesn't match (in required fields)
-
-General problems
-
 * Disc number must be a number but obviously it can be other things
+* `getAlbumInfo2` return type incorrect (based on `AlbumList`)?
+* `downloadPodcastEpisode` return type incorrect?
+* `deleteBookmark` summary and description is wrong
+* `download` error payload schema incomplete

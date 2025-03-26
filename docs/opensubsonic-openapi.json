@@ -330,7 +330,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PlaylistResponse"
+                                    "$ref": "#/components/schemas/CreatePlaylistResponse"
                                 }
                             }
                         }
@@ -462,7 +462,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SharesResponse"
+                                    "$ref": "#/components/schemas/CreateSharesResponse"
                                 }
                             }
                         }
@@ -1202,7 +1202,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AlbumResponse"
+                                    "$ref": "#/components/schemas/GetAlbumResponse"
                                 }
                             }
                         }
@@ -1260,7 +1260,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AlbumInfoResponse"
+                                    "$ref": "#/components/schemas/GetAlbumInfoResponse"
                                 }
                             }
                         }
@@ -1318,7 +1318,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AlbumInfoResponse"
+                                    "$ref": "#/components/schemas/GetAlbumInfoResponse"
                                 }
                             }
                         }
@@ -1434,7 +1434,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AlbumListResponse"
+                                    "$ref": "#/components/schemas/GetAlbumListResponse"
                                 }
                             }
                         }
@@ -1443,6 +1443,122 @@
                 "externalDocs": {
                     "description": "getAlbumList",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist/"
+                }
+            }
+        },
+        "/rest/getAlbumList2": {
+            "get": {
+                "summary": "Returns a list of random, newest, highest rated etc. albums (v2).",
+                "description": "Similar to `getAlbumList`, but organizes music according to ID3 tags.",
+                "operationId": "getAlbumList2",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/AlbumListType"
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "The number of albums to return. Max 500.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "minimum": 1,
+                            "maximum": 500
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "The list offset. Useful if you for example want to page through the list of newest albums.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "fromYear",
+                        "in": "query",
+                        "description": "Required if `type=='byYear'`. The first year in the range. If `fromYear` > `toYear` a reverse chronological list is returned.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "toYear",
+                        "in": "query",
+                        "description": "Required if `type=='byYear'`. The last year in the range.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Required if `type=='byGenre'`. The name of the genre, e.g., “Rock”.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.11.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumList2Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumList2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist2/"
                 }
             }
         }
@@ -1703,9 +1819,6 @@
                 "required": [
                     "name"
                 ],
-                "example": {
-                    "name": "Noise"
-                },
                 "externalDocs": {
                     "description": "ItemGenre",
                     "url": "https://opensubsonic.netlify.app/docs/responses/itemgenre/"
@@ -1760,22 +1873,6 @@
                     "id",
                     "name"
                 ],
-                "example": {
-                    "id": "37ec820ca7193e17040c98f7da7c4b51",
-                    "name": "2 Mello",
-                    "coverArt": "ar-37ec820ca7193e17040c98f7da7c4b51_0",
-                    "albumCount": 1,
-                    "userRating": 5,
-                    "artistImageUrl": "https://demo.org/image.jpg",
-                    "starred": "2017-04-11T10:42:50.842Z",
-                    "musicBrainzId": "189002e7-3285-4e2e-92a3-7f6c30d407a2",
-                    "sortName": "Mello (2)",
-                    "roles": [
-                        "artist",
-                        "albumartist",
-                        "composer"
-                    ]
-                },
                 "externalDocs": {
                     "description": "ArtistID3",
                     "url": "https://opensubsonic.netlify.app/docs/responses/artistid3/"
@@ -1801,14 +1898,6 @@
                     "role",
                     "artist"
                 ],
-                "example": {
-                    "role": "performer",
-                    "subRole": "Bass",
-                    "artist": {
-                        "id": "ar-1",
-                        "name": "Artist 1"
-                    }
-                },
                 "externalDocs": {
                     "description": "Contributor",
                     "url": "https://opensubsonic.netlify.app/docs/responses/contributor/"
@@ -1848,14 +1937,6 @@
                 "externalDocs": {
                     "description": "Replay Gain",
                     "url": "https://opensubsonic.netlify.app/docs/responses/replaygain/"
-                },
-                "example": {
-                    "trackGain": 0.1,
-                    "albumGain": 1.1,
-                    "trackPeak": 9.2,
-                    "albumPeak": 0,
-                    "baseGain": 0,
-                    "fallbackGain": -8.1
                 }
             },
             "GenericMediaType": {
@@ -2115,114 +2196,6 @@
                     "isDir",
                     "title"
                 ],
-                "example": {
-                    "id": "082f435a363c32c57d5edb6a678a28d4",
-                    "parent": "e8a0685e3f3ec6f251649af2b58b8617",
-                    "isDir": false,
-                    "title": "\"polar expedition\"",
-                    "album": "Live at The Casbah - 2005-04-29",
-                    "artist": "The New Deal",
-                    "track": 4,
-                    "year": 2005,
-                    "coverArt": "mf-082f435a363c32c57d5edb6a678a28d4_6410b3ce",
-                    "size": 19866778,
-                    "contentType": "audio/flac",
-                    "suffix": "flac",
-                    "starred": "2023-03-27T09:45:27Z",
-                    "duration": 178,
-                    "bitRate": 880,
-                    "bitDepth": 16,
-                    "samplingRate": 44100,
-                    "channelCount": 2,
-                    "path": "The New Deal/Live at The Casbah - 2005-04-29/04 - \"polar expedition\".flac",
-                    "playCount": 8,
-                    "played": "2023-03-26T22:27:46Z",
-                    "discNumber": 1,
-                    "created": "2023-03-14T17:51:22.112827504Z",
-                    "albumId": "e8a0685e3f3ec6f251649af2b58b8617",
-                    "artistId": "97e0398acf63f9fb930d7d4ce209a52b",
-                    "type": "music",
-                    "mediaType": "song",
-                    "isVideo": false,
-                    "bpm": 134,
-                    "comment": "This is a song comment",
-                    "sortName": "Polar expedition",
-                    "musicBrainzId": "189002e7-3285-4e2e-92a3-7f6c30d407a2",
-                    "genres": [
-                        {
-                            "name": "Hip-Hop"
-                        },
-                        {
-                            "name": "East coast"
-                        }
-                    ],
-                    "artists": [
-                        {
-                            "id": "ar-1",
-                            "name": "Artist 1"
-                        },
-                        {
-                            "id": "ar-2",
-                            "name": "Artist 2"
-                        }
-                    ],
-                    "displayArtist": "Artist 1 feat. Artist 2",
-                    "albumArtists": [
-                        {
-                            "id": "ar-6",
-                            "name": "Artist 6"
-                        },
-                        {
-                            "id": "ar-7",
-                            "name": "Artist 7"
-                        }
-                    ],
-                    "displayAlbumArtist": "Artist 6 & Artist 7",
-                    "contributors": [
-                        {
-                            "role": "composer",
-                            "artist": {
-                                "id": "ar-3",
-                                "name": "Artist 3"
-                            }
-                        },
-                        {
-                            "role": "composer",
-                            "artist": {
-                                "id": "ar-4",
-                                "name": "Artist 4"
-                            }
-                        },
-                        {
-                            "role": "lyricist",
-                            "artist": {
-                                "id": "ar-5",
-                                "name": "Artist 5"
-                            }
-                        },
-                        {
-                            "role": "performer",
-                            "subRole": "Bass",
-                            "artist": {
-                                "id": "ar-5",
-                                "name": "Artist 5"
-                            }
-                        }
-                    ],
-                    "displayComposer": "Artist 3, Artist 4",
-                    "moods": [
-                        "slow",
-                        "cool"
-                    ],
-                    "explicitStatus": "explicit",
-                    "replayGain": {
-                        "trackGain": 0.1,
-                        "albumGain": 1.1,
-                        "trackPeak": 9.2,
-                        "albumPeak": 9,
-                        "baseGain": 0
-                    }
-                },
                 "externalDocs": {
                     "description": "Child",
                     "url": "https://opensubsonic.netlify.app/docs/responses/child/"
@@ -2297,52 +2270,12 @@
                     "created",
                     "changed"
                 ],
-                "example": {
-                    "id": "800000075",
-                    "name": "testcreate",
-                    "owner": "user",
-                    "public": true,
-                    "created": "2023-03-16T03:18:41+00:00",
-                    "changed": "2023-03-16T03:18:41+00:00",
-                    "songCount": 1,
-                    "duration": 304,
-                    "entry": [
-                        {
-                            "id": "300000060",
-                            "parent": "200000002",
-                            "title": "BrownSmoke",
-                            "isDir": false,
-                            "isVideo": false,
-                            "type": "music",
-                            "albumId": "200000002",
-                            "album": "Colorsmoke EP",
-                            "artistId": "100000002",
-                            "artist": "Synthetic",
-                            "coverArt": "300000060",
-                            "duration": 304,
-                            "bitRate": 20,
-                            "bitDepth": 16,
-                            "samplingRate": 44100,
-                            "channelCount": 2,
-                            "userRating": 5,
-                            "averageRating": 5,
-                            "track": 4,
-                            "year": 2007,
-                            "genre": "Electronic",
-                            "size": 792375,
-                            "discNumber": 1,
-                            "suffix": "wma",
-                            "contentType": "audio/x-ms-wma",
-                            "path": "Synthetic/Synthetic_-_Colorsmoke_EP-20k217-2007/04-Synthetic_-_BrownSmokeYSBM20k22khS.wma"
-                        }
-                    ]
-                },
                 "externalDocs": {
                     "description": "PlaylistWithSongs",
                     "url": "https://opensubsonic.netlify.app/docs/responses/playlistwithsongs/"
                 }
             },
-            "PlaylistSuccessResponse": {
+            "CreatePlaylistSuccessResponse": {
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SubsonicSuccessResponse"
@@ -2360,10 +2293,10 @@
                     }
                 ]
             },
-            "PlaylistResponse": {
+            "CreatePlaylistResponse": {
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/PlaylistSuccessResponse"
+                        "$ref": "#/components/schemas/CreatePlaylistSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
@@ -2424,68 +2357,6 @@
                     "created",
                     "visitCount"
                 ],
-                "example": {
-                    "id": "12",
-                    "url": "http://localhost:8989/share.php?id=12&secret=fXlKyEv3",
-                    "description": "Forget and Remember (Comfort Fit)",
-                    "username": "user",
-                    "created": "2023-03-16T04:13:09+00:00",
-                    "visitCount": 0,
-                    "entry": [
-                        {
-                            "id": "300000116",
-                            "parent": "200000021",
-                            "title": "Can I Help U?",
-                            "isDir": false,
-                            "isVideo": false,
-                            "type": "music",
-                            "albumId": "200000021",
-                            "album": "Forget and Remember",
-                            "artistId": "100000036",
-                            "artist": "Comfort Fit",
-                            "coverArt": "300000116",
-                            "duration": 103,
-                            "bitRate": 216,
-                            "bitDepth": 16,
-                            "samplingRate": 44100,
-                            "channelCount": 2,
-                            "track": 1,
-                            "year": 2005,
-                            "genre": "Hip-Hop",
-                            "size": 2811819,
-                            "discNumber": 1,
-                            "suffix": "mp3",
-                            "contentType": "audio/mpeg",
-                            "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
-                        },
-                        {
-                            "id": "300000121",
-                            "parent": "200000021",
-                            "title": "Planetary Picknick",
-                            "isDir": false,
-                            "isVideo": false,
-                            "type": "music",
-                            "albumId": "200000021",
-                            "album": "Forget and Remember",
-                            "artistId": "100000036",
-                            "artist": "Comfort Fit",
-                            "coverArt": "300000121",
-                            "duration": 358,
-                            "bitRate": 238,
-                            "bitDepth": 16,
-                            "samplingRate": 44100,
-                            "channelCount": 2,
-                            "track": 2,
-                            "year": 2005,
-                            "genre": "Hip-Hop",
-                            "size": 10715592,
-                            "discNumber": 1,
-                            "suffix": "mp3",
-                            "contentType": "audio/mpeg",
-                            "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
-                        }
-                    ]
-                },
                 "externalDocs": {
                     "description": "Share",
                     "url": "https://opensubsonic.netlify.app/docs/responses/share/"
@@ -2503,78 +2374,12 @@
                         "description": "A list of share"
                     }
                 },
-                "example": {
-                    "share": [
-                        {
-                            "id": "12",
-                            "url": "http://localhost:8989/share.php?id=12&secret=fXlKyEv3",
-                            "description": "Forget and Remember (Comfort Fit)",
-                            "username": "user",
-                            "created": "2023-03-16T04:13:09+00:00",
-                            "visitCount": 0,
-                            "entry": [
-                                {
-                                    "id": "300000116",
-                                    "parent": "200000021",
-                                    "title": "Can I Help U?",
-                                    "isDir": false,
-                                    "isVideo": false,
-                                    "type": "music",
-                                    "albumId": "200000021",
-                                    "album": "Forget and Remember",
-                                    "artistId": "100000036",
-                                    "artist": "Comfort Fit",
-                                    "coverArt": "300000116",
-                                    "duration": 103,
-                                    "bitRate": 216,
-                                    "bitDepth": 16,
-                                    "samplingRate": 44100,
-                                    "channelCount": 2,
-                                    "track": 1,
-                                    "year": 2005,
-                                    "genre": "Hip-Hop",
-                                    "size": 2811819,
-                                    "discNumber": 1,
-                                    "suffix": "mp3",
-                                    "contentType": "audio/mpeg",
-                                    "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
-                                },
-                                {
-                                    "id": "300000121",
-                                    "parent": "200000021",
-                                    "title": "Planetary Picknick",
-                                    "isDir": false,
-                                    "isVideo": false,
-                                    "type": "music",
-                                    "albumId": "200000021",
-                                    "album": "Forget and Remember",
-                                    "artistId": "100000036",
-                                    "artist": "Comfort Fit",
-                                    "coverArt": "300000121",
-                                    "duration": 358,
-                                    "bitRate": 238,
-                                    "bitDepth": 16,
-                                    "samplingRate": 44100,
-                                    "channelCount": 2,
-                                    "track": 2,
-                                    "year": 2005,
-                                    "genre": "Hip-Hop",
-                                    "size": 10715592,
-                                    "discNumber": 1,
-                                    "suffix": "mp3",
-                                    "contentType": "audio/mpeg",
-                                    "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
-                                }
-                            ]
-                        }
-                    ]
-                },
                 "externalDocs": {
                     "description": "Shares",
                     "url": "https://opensubsonic.netlify.app/docs/responses/shares/"
                 }
             },
-            "SharesSuccessResponse": {
+            "CreateSharesSuccessResponse": {
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SubsonicSuccessResponse"
@@ -2593,10 +2398,10 @@
                     }
                 ]
             },
-            "SharesResponse": {
+            "CreateSharesResponse": {
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/SharesSuccessResponse"
+                        "$ref": "#/components/schemas/CreateSharesSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
@@ -2655,7 +2460,7 @@
                     "title"
                 ]
             },
-            "AlbumID3WithSongs": {
+            "AlbumID3": {
                 "type": "object",
                 "description": "Album with songs.",
                 "properties": {
@@ -2807,138 +2612,31 @@
                     "songCount",
                     "duration",
                     "created"
-                ],
-                "example": {
-                    "id": "ad0f112b6dcf83de5e9cae85d07f0d35",
-                    "name": "8-bit lagerfeuer",
-                    "version": "Deluxe Edition",
-                    "artist": "pornophonique",
-                    "year": 2007,
-                    "coverArt": "al-ad0f112b6dcf83de5e9cae85d07f0d35_640a93a8",
-                    "starred": "2023-03-22T01:51:06Z",
-                    "duration": 1954,
-                    "playCount": 97,
-                    "genre": "Hip-Hop",
-                    "created": "2023-03-10T02:19:35.784818075Z",
-                    "artistId": "91c3901ac465b9efc439e4be4270c2b6",
-                    "songCount": 8,
-                    "played": "2023-03-28T00:45:13Z",
-                    "userRating": 4,
-                    "recordLabels": [
-                        {
-                            "name": "Sony"
-                        }
-                    ],
-                    "musicBrainzId": "189002e7-3285-4e2e-92a3-7f6c30d407a2",
-                    "genres": [
-                        {
-                            "name": "Hip-Hop"
-                        },
-                        {
-                            "name": "East coast"
-                        }
-                    ],
-                    "artists": [
-                        {
-                            "id": "ar-1",
-                            "name": "Artist 1"
-                        },
-                        {
-                            "id": "ar-2",
-                            "name": "Artist 2"
-                        }
-                    ],
-                    "displayArtist": "Artist 1 feat. Artist 2",
-                    "releaseTypes": [
-                        "Album",
-                        "Remixes"
-                    ],
-                    "moods": [
-                        "slow",
-                        "cool"
-                    ],
-                    "sortName": "lagerfeuer (8-bit)",
-                    "originalReleaseDate": {
-                        "year": 2001,
-                        "month": 3,
-                        "day": 10
-                    },
-                    "releaseDate": {
-                        "year": 2001,
-                        "month": 3,
-                        "day": 10
-                    },
-                    "isCompilation": false,
-                    "explicitStatus": "explicit",
-                    "discTitles": [
-                        {
-                            "disc": 0,
-                            "title": "Disc 0 title"
-                        },
-                        {
-                            "disc": 2,
-                            "title": "Disc 1 title"
-                        }
-                    ],
-                    "song": [
-                        {
-                            "id": "300000116",
-                            "parent": "200000021",
-                            "title": "Can I Help U?",
-                            "isDir": false,
-                            "isVideo": false,
-                            "type": "music",
-                            "albumId": "200000021",
-                            "album": "Forget and Remember",
-                            "artistId": "100000036",
-                            "artist": "Comfort Fit",
-                            "coverArt": "300000116",
-                            "duration": 103,
-                            "bitRate": 216,
-                            "bitDepth": 16,
-                            "samplingRate": 44100,
-                            "channelCount": 2,
-                            "track": 1,
-                            "year": 2005,
-                            "genre": "Hip-Hop",
-                            "size": 2811819,
-                            "discNumber": 1,
-                            "suffix": "mp3",
-                            "explicitStatus": "explicit",
-                            "contentType": "audio/mpeg",
-                            "path": "user/Comfort Fit/Forget And Remember/1 - Can I Help U?.mp3"
-                        },
-                        {
-                            "id": "300000121",
-                            "parent": "200000021",
-                            "title": "Planetary Picknick",
-                            "isDir": false,
-                            "isVideo": false,
-                            "type": "music",
-                            "albumId": "200000021",
-                            "album": "Forget and Remember",
-                            "artistId": "100000036",
-                            "artist": "Comfort Fit",
-                            "coverArt": "300000121",
-                            "duration": 358,
-                            "bitRate": 238,
-                            "bitDepth": 16,
-                            "samplingRate": 44100,
-                            "channelCount": 2,
-                            "track": 2,
-                            "year": 2005,
-                            "genre": "Hip-Hop",
-                            "size": 10715592,
-                            "discNumber": 1,
-                            "suffix": "mp3",
-                            "explicitStatus": "clean",
-                            "contentType": "audio/mpeg",
-                            "path": "user/Comfort Fit/Forget And Remember/2 - Planetary Picknick.mp3"
-                        }
-                    ]
-                }
+                ]
             },
-            "SuccessAlbumResponse": {
+            "AlbumID3WithSongs": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/AlbumID3"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "song": {
+                                "type": "array",
+                                "description": "The list of songs",
+                                "items": {
+                                    "$ref": "#/components/schemas/Child"
+                                }
+                            }
+                        },
+                        "required": [
+                            "song"
+                        ]
+                    }
+                ]
+            },
+            "GetAlbumSuccessResponse": {
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SubsonicSuccessResponse"
@@ -2957,10 +2655,10 @@
                     }
                 ]
             },
-            "AlbumResponse": {
+            "GetAlbumResponse": {
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/SuccessAlbumResponse"
+                        "$ref": "#/components/schemas/GetAlbumSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
@@ -2997,7 +2695,7 @@
                     }
                 }
             },
-            "SuccessAlbumInfoResponse": {
+            "GetAlbumInfoSuccessResponse": {
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SubsonicSuccessResponse"
@@ -3016,10 +2714,10 @@
                     }
                 ]
             },
-            "AlbumInfoResponse": {
+            "GetAlbumInfoResponse": {
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/SuccessAlbumInfoResponse"
+                        "$ref": "#/components/schemas/GetAlbumInfoSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
@@ -3055,7 +2753,7 @@
                     }
                 }
             },
-            "SuccessAlbumListResponse": {
+            "GetAlbumListSuccessResponse": {
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SubsonicSuccessResponse"
@@ -3074,10 +2772,51 @@
                     }
                 ]
             },
-            "AlbumListResponse": {
+            "GetAlbumListResponse": {
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/SuccessAlbumListResponse"
+                        "$ref": "#/components/schemas/GetAlbumListSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "AlbumList2": {
+                "type": "object",
+                "properties": {
+                    "album": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AlbumID3"
+                        },
+                        "description": "Artist albums"
+                    }
+                }
+            },
+            "GetAlbumList2SuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "albumList2": {
+                                "$ref": "#/components/schemas/AlbumList"
+                            }
+                        },
+                        "required": [
+                            "albumList2"
+                        ],
+                        "description": "A subsonic-response element with a nested albumList2 element on success."
+                    }
+                ]
+            },
+            "GetAlbumList2Response": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetAlbumList2SuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
