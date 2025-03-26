@@ -2004,6 +2004,55 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getcaptions/"
                 }
             }
+        },
+        "/rest/getChatMessages": {
+            "get": {
+                "summary": "Returns the current visible (non-expired) chat messages.",
+                "description": "Returns the current visible (non-expired) chat messages.",
+                "operationId": "getChatMessages",
+                "tags": [
+                    "Chat"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetChatMessagesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getChatMessages",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getchatmessages/"
+                }
+            }
         }
     },
     "components": {
@@ -3686,6 +3735,79 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetBookmarksSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "ChatMessage": {
+                "type": "object",
+                "description": "A chatMessage.",
+                "externalDocs": {
+                    "description": "ChatMessage",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/chatmessage/"
+                },
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Username"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "description": "Time in millis since Jan 1 1970"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message"
+                    }
+                },
+                "required": [
+                    "id",
+                    "username",
+                    "message"
+                ]
+            },
+            "ChatMessages": {
+                "type": "object",
+                "description": "Chat messages list.",
+                "externalDocs": {
+                    "description": "ChatMessages",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/chatmessages/"
+                },
+                "properties": {
+                    "chatMessage": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChatMessage"
+                        },
+                        "description": "List of chatMessage"
+                    }
+                }
+            },
+            "GetChatMessagesSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "chatMessages": {
+                                "$ref": "#/components/schemas/ChatMessages"
+                            }
+                        },
+                        "required": [
+                            "chatMessages"
+                        ],
+                        "description": "A subsonic-response element with a nested `chatMessages` element on success."
+                    }
+                ]
+            },
+            "GetChatMessagesResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetChatMessagesSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
