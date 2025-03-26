@@ -2053,6 +2053,66 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getchatmessages/"
                 }
             }
+        },
+        "/rest/getCoverArt": {
+            "get": {
+                "summary": "Returns a cover art image.",
+                "description": "Returns a cover art image.",
+                "operationId": "getCoverArt",
+                "tags": [
+                    "Media Retrieval"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The coverArt ID. Returned by most entities likes `Child` or `AlbumID3`",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "If specified, scale image to this size.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BinaryResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getCoverArt",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getcoverart/"
+                }
+            }
         }
     },
     "components": {

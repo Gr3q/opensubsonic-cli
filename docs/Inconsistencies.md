@@ -9,6 +9,7 @@
 * `getArtists` page first `artists` link is broken
 * `getAvatar` `username` parameter is "required" and has a "default" as well.
 * `getCaptions` return payload not clear
+* `getCoverArt` `size` param type not specified, I assume `int` as pixels
 
 ## Future Improvements
 
