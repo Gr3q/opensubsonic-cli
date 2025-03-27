@@ -2022,6 +2022,46 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylist/"
                 }
             }
+        },
+        "/rest/getPlaylists": {
+            "get": {
+                "summary": "Returns all playlists a user is allowed to play.",
+                "description": "Returns all playlists a user is allowed to play.",
+                "operationId": "getPlaylists",
+                "tags": [
+                    "Playlists"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "(Since 1.8.0) If specified, return playlists for this user rather than for the authenticated user. The authenticated user must have admin role if this parameter is used.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPlaylistsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getPlaylists",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylists/"
+                }
+            }
         }
     },
     "components": {
@@ -2660,9 +2700,9 @@
                     "url": "https://opensubsonic.netlify.app/docs/responses/child/"
                 }
             },
-            "PlaylistWithSongs": {
+            "Playlist": {
                 "type": "object",
-                "description": "Playlist with songs.",
+                "description": "Playlist.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -2712,13 +2752,6 @@
                             "type": "string"
                         },
                         "description": "A list of allowed usernames"
-                    },
-                    "entry": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Child"
-                        },
-                        "description": "The list of songs"
                     }
                 },
                 "required": [
@@ -2730,9 +2763,32 @@
                     "changed"
                 ],
                 "externalDocs": {
-                    "description": "PlaylistWithSongs",
-                    "url": "https://opensubsonic.netlify.app/docs/responses/playlistwithsongs/"
+                    "description": "Playlist",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/playlist/"
                 }
+            },
+            "PlaylistWithSongs": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Playlist"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "entry": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Child"
+                                },
+                                "description": "The list of songs"
+                            }
+                        },
+                        "externalDocs": {
+                            "description": "PlaylistWithSongs",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/playlistwithsongs/"
+                        }
+                    }
+                ]
             },
             "CreatePlaylistSuccessResponse": {
                 "allOf": [
@@ -4873,6 +4929,61 @@
                 "externalDocs": {
                     "description": "GetPlaylistResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylist/"
+                }
+            },
+            "Playlists": {
+                "type": "object",
+                "description": "Playlists.",
+                "externalDocs": {
+                    "description": "Playlists",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/playlists/"
+                },
+                "properties": {
+                    "playlist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Playlist"
+                        },
+                        "description": "The playlists"
+                    }
+                }
+            },
+            "GetPlaylistsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "playlists": {
+                                "$ref": "#/components/schemas/Playlists"
+                            }
+                        },
+                        "required": [
+                            "playlists"
+                        ]
+                    }
+                ]
+            },
+            "GetPlaylistsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `playlists` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetPlaylistsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetPlaylistsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylists/"
                 }
             }
         }
