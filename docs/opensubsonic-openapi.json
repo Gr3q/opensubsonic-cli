@@ -2379,6 +2379,57 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs/"
                 }
             }
+        },
+        "/rest/getSimilarSongs2": {
+            "get": {
+                "summary": "Returns a random collection of songs from the given artist and similar artists (v2).",
+                "description": "Similar to `getSimilarSongs`, but organizes music according to ID3 tags.",
+                "operationId": "getSimilarSongs2",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The artist, album or song ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Max number of songs to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 50,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetSimilarSongs2Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getSimilarSongs2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs2/"
+                }
+            }
         }
     },
     "components": {
@@ -5735,6 +5786,61 @@
                 "externalDocs": {
                     "description": "GetSimilarSongsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs/"
+                }
+            },
+            "SimilarSongs2": {
+                "type": "object",
+                "description": "SimilarSongs2 list.",
+                "externalDocs": {
+                    "description": "SimilarSongs2",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/similarsongs2/"
+                },
+                "properties": {
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "List of songs"
+                    }
+                }
+            },
+            "GetSimilarSongs2SuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "similarSongs2": {
+                                "$ref": "#/components/schemas/SimilarSongs2"
+                            }
+                        },
+                        "required": [
+                            "similarSongs2"
+                        ]
+                    }
+                ]
+            },
+            "GetSimilarSongs2Response": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `similarSongs2` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetSimilarSongs2SuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetSimilarSongs2Response",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs2/"
                 }
             }
         }

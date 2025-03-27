@@ -19,6 +19,7 @@
 * `NowPlayingEntry` `minutesAgo` format is unclear
 * `PlayQueue` description incorrect
 * `PodcastChannel` `errorMessage` existence could depend on `status` in documentation?
+* `GetSimilarSongs` and `GetSimilarSongs2` response type is the same in the spec (not the names)?
 
 ## Future Improvements
 
