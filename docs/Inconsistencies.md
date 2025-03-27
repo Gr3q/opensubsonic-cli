@@ -11,6 +11,7 @@
 * `getCaptions` return payload not clear
 * `getCoverArt` `size` param type not specified, I assume `int` as pixels
 * `Indexes` `ignoredArticles` pattern is unclear, it was comma-separated list as string before
+* `internetRadioStation` `homePageUrl` has wrong details
 
 ## Future Improvements
 

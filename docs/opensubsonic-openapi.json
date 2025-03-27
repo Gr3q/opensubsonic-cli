@@ -2229,6 +2229,55 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getindexes/"
                 }
             }
+        },
+        "/rest/getInternetRadioStations": {
+            "get": {
+                "summary": "Returns all internet radio stations.",
+                "description": "Returns all internet radio stations. Takes no extra parameters.",
+                "operationId": "getInternetRadioStations",
+                "tags": [
+                    "Internet Radio"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetInternetRadioStationsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getInternetRadioStations",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getinternetradiostations/"
+                }
+            }
         }
     },
     "components": {
@@ -4153,6 +4202,83 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetIndexesSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "InternetRadioStation": {
+                "type": "object",
+                "description": "An internetRadioStation.",
+                "externalDocs": {
+                    "description": "InternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/internetradiostation/"
+                },
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name"
+                    },
+                    "streamUrl": {
+                        "type": "string",
+                        "description": "The streamUrl"
+                    },
+                    "homePageUrl": {
+                        "type": "string",
+                        "description": "Genre name"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "streamUrl"
+                ]
+            },
+            "InternetRadioStations": {
+                "type": "object",
+                "description": "internetRadioStations.",
+                "externalDocs": {
+                    "description": "InternetRadioStations",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/internetradiostations/"
+                },
+                "properties": {
+                    "internetRadioStation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InternetRadioStation"
+                        },
+                        "description": "A list of internetRadioStation"
+                    }
+                }
+            },
+            "GetInternetRadioStationsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "internetRadioStations": {
+                                "$ref": "#/components/schemas/InternetRadioStations"
+                            }
+                        },
+                        "required": [
+                            "internetRadioStations"
+                        ],
+                        "description": "A subsonic-response element with a nested `internetRadioStations` element on success."
+                    }
+                ]
+            },
+            "GetInternetRadioStationsResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetInternetRadioStationsSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
