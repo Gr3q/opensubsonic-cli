@@ -2113,6 +2113,55 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getcoverart/"
                 }
             }
+        },
+        "/rest/getGenres": {
+            "get": {
+                "summary": "Returns all genres.",
+                "description": "Returns all genres.",
+                "operationId": "getGenres",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetGenresResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getGenres",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getgenres/"
+                }
+            }
         }
     },
     "components": {
@@ -3868,6 +3917,79 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetChatMessagesSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "Genre": {
+                "type": "object",
+                "description": "A genre.",
+                "externalDocs": {
+                    "description": "Genre",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/genre/"
+                },
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "Genre name"
+                    },
+                    "songCount": {
+                        "type": "integer",
+                        "description": "Genre song count"
+                    },
+                    "albumCount": {
+                        "type": "integer",
+                        "description": "Genre album count"
+                    }
+                },
+                "required": [
+                    "value",
+                    "songCount",
+                    "albumCount"
+                ]
+            },
+            "Genres": {
+                "type": "object",
+                "description": "Genres list.",
+                "externalDocs": {
+                    "description": "Genres",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/genres/"
+                },
+                "properties": {
+                    "genre": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Genre"
+                        },
+                        "description": "List of genre"
+                    }
+                }
+            },
+            "GetGenresSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "genres": {
+                                "$ref": "#/components/schemas/Genres"
+                            }
+                        },
+                        "required": [
+                            "genres"
+                        ],
+                        "description": "A subsonic-response element with a nested `genres` element on success."
+                    }
+                ]
+            },
+            "GetGenresResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetGenresSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"
