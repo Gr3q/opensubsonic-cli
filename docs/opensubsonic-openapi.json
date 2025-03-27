@@ -2394,6 +2394,65 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyrics/"
                 }
             }
+        },
+        "/rest/getLyricsBySongId": {
+            "get": {
+                "summary": "Add support for synchronized lyrics, multiple languages, and retrieval by song ID",
+                "description": "Retrieves all structured lyrics from the server for a given song. The lyrics can come from embedded tags (SYLT/USLT), LRC file/text file, or any other external source.",
+                "operationId": "getLyricsBySongId",
+                "tags": [
+                    "Media Retrieval",
+                    "Extension"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The track ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLyricsBySongIdResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getLyricsBySongId",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyricsbysongid/"
+                }
+            }
         }
     },
     "components": {
@@ -4667,6 +4726,124 @@
                 "externalDocs": {
                     "description": "GetLicenseResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyrics/"
+                }
+            },
+            "Line": {
+                "type": "object",
+                "description": "One line of a song lyric",
+                "externalDocs": {
+                    "description": "Line",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/line/"
+                },
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "The actual text of this line"
+                    },
+                    "start": {
+                        "type": "number",
+                        "description": "The start time of the lyrics, relative to the start time of the track, in milliseconds. If this is not part of synced lyrics, start __must__ be omitted"
+                    }
+                },
+                "required": [
+                    "value"
+                ]
+            },
+            "StructuredLyrics": {
+                "type": "object",
+                "description": "Structured lyrics",
+                "externalDocs": {
+                    "description": "StructuredLyrics",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/structuredlyrics/"
+                },
+                "properties": {
+                    "lang": {
+                        "type": "string",
+                        "description": "The lyrics language (ideally ISO 639). If the language is unknown (e.g. lrc file), the server must return `und` (ISO standard) or `xxx` (common value for taggers). Ideally, the server will return lang as an ISO 639 (2/3) code. However, tagged files and external lyrics can come with any value as a potential language code, so clients should take care when displaying lang.\n\nFurthermore, there is special behavior for the value xxx. While not an ISO code, it is commonly used by taggers and other parsing software. Clients should treat xxx as not having a specified language (equivalent to the und code)."
+                    },
+                    "synced": {
+                        "type": "boolean",
+                        "description": "True if the lyrics are synced, false otherwise"
+                    },
+                    "line": {
+                        "type": "array",
+                        "description": "The actual lyrics. Ordered by start time (synced) or appearance order (unsynced)",
+                        "items": {
+                            "$ref": "#/components/schemas/Line"
+                        }
+                    },
+                    "displayArtist": {
+                        "type": "string",
+                        "description": "The artist name to display. This could be the localized name, or any other value"
+                    },
+                    "displayTitle": {
+                        "type": "string",
+                        "description": "The title to display. This could be the song title (localized), or any other value"
+                    },
+                    "offset": {
+                        "type": "number",
+                        "description": "The offset to apply to all lyrics, in milliseconds. Positive means lyrics appear sooner, negative means later. If not included, the offset must be assumed to be 0"
+                    }
+                },
+                "required": [
+                    "lang",
+                    "synced",
+                    "line"
+                ]
+            },
+            "LyricsList": {
+                "type": "object",
+                "description": "List of structured lyrics",
+                "externalDocs": {
+                    "description": "LyricsList",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/lyricslist/"
+                },
+                "properties": {
+                    "structuredLyrics": {
+                        "type": "array",
+                        "description": "Structured lyrics. There can be multiple lyrics of the same type with the same language",
+                        "items": {
+                            "$ref": "#/components/schemas/StructuredLyrics"
+                        }
+                    }
+                }
+            },
+            "GetLyricsBySongIdSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "lyricsList": {
+                                "$ref": "#/components/schemas/LyricsList"
+                            }
+                        },
+                        "required": [
+                            "lyricsList"
+                        ]
+                    }
+                ]
+            },
+            "GetLyricsBySongIdResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested lyricsList",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetLyricsBySongIdSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetLyricsBySongIdResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyricsbysongid/"
                 }
             }
         }
