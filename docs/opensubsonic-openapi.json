@@ -2327,6 +2327,73 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getlicense/"
                 }
             }
+        },
+        "/rest/getLyrics": {
+            "get": {
+                "summary": "Searches for and returns lyrics for a given song.",
+                "description": "Searches for and returns lyrics for a given song.",
+                "operationId": "getLyrics",
+                "tags": [
+                    "Media Retrieval"
+                ],
+                "parameters": [
+                    {
+                        "name": "artist",
+                        "in": "query",
+                        "description": "The artist name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "The song title.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLyricsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getLyrics",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyrics/"
+                }
+            }
         }
     },
     "components": {
@@ -3077,14 +3144,24 @@
                 ]
             },
             "CreatePlaylistResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/CreatePlaylistSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested playlist element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/CreatePlaylistSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "CreatePlaylistResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createplaylist/"
+                }
             },
             "Share": {
                 "type": "object",
@@ -3176,20 +3253,29 @@
                         },
                         "required": [
                             "shares"
-                        ],
-                        "description": "A subsonic-response element with a nested shares element on success. Which in turns contains a single share element for the newly created share"
+                        ]
                     }
                 ]
             },
             "CreateSharesResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/CreateSharesSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested shares element on success. Which in turns contains a single share element for the newly created share",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/CreateSharesSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "CreateSharesResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createshare/"
+                }
             },
             "RecordLabel": {
                 "type": "object",
@@ -3453,20 +3539,29 @@
                         },
                         "required": [
                             "album"
-                        ],
-                        "description": "A subsonic-response element with a nested album element on success."
+                        ]
                     }
                 ]
             },
             "GetAlbumResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetAlbumSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested album element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetAlbumSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetAlbumResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbum/"
+                }
             },
             "AlbumInfo": {
                 "type": "object",
@@ -3516,20 +3611,29 @@
                         },
                         "required": [
                             "albumInfo"
-                        ],
-                        "description": "A subsonic-response element with a nested albumInfo element on success."
+                        ]
                     }
                 ]
             },
             "GetAlbumInfoResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetAlbumInfoSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested albumInfo element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetAlbumInfoSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetAlbumInfoResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo/"
+                }
             },
             "AlbumListType": {
                 "type": "string",
@@ -3578,20 +3682,29 @@
                         },
                         "required": [
                             "albumList"
-                        ],
-                        "description": "A subsonic-response element with a nested albumList element on success."
+                        ]
                     }
                 ]
             },
             "GetAlbumListResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetAlbumListSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested albumList element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetAlbumListSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetAlbumListResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist/"
+                }
             },
             "AlbumList2": {
                 "type": "object",
@@ -3623,20 +3736,29 @@
                         },
                         "required": [
                             "albumList2"
-                        ],
-                        "description": "A subsonic-response element with a nested albumList2 element on success."
+                        ]
                     }
                 ]
             },
             "GetAlbumList2Response": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetAlbumList2SuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested albumList2 element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetAlbumList2SuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetAlbumList2Response",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist2/"
+                }
             },
             "ArtistWithAlbumsID3": {
                 "allOf": [
@@ -3678,20 +3800,29 @@
                         },
                         "required": [
                             "artist"
-                        ],
-                        "description": "A subsonic-response element with a nested `artist` element on success."
+                        ]
                     }
                 ]
             },
             "GetArtistResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetArtistSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested artist element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetArtistSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetArtistResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartist/"
+                }
             },
             "Artist": {
                 "type": "object",
@@ -3791,20 +3922,29 @@
                         },
                         "required": [
                             "artistInfo"
-                        ],
-                        "description": "A subsonic-response element with a nested `artistInfo` element on success."
+                        ]
                     }
                 ]
             },
             "GetArtistInfoResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetArtistInfoSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested artistInfo element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetArtistInfoSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetArtistInfoResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartistinfo/"
+                }
             },
             "ArtistInfo2": {
                 "type": "object",
@@ -3861,20 +4001,29 @@
                         },
                         "required": [
                             "artistInfo2"
-                        ],
-                        "description": "A subsonic-response element with a nested `artistInfo2` element on success."
+                        ]
                     }
                 ]
             },
             "GetArtistInfo2Response": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetArtistInfo2SuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested artistInfo2 element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetArtistInfo2SuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetArtistInfo2Response",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartistinfo2/"
+                }
             },
             "ArtistsID3": {
                 "type": "object",
@@ -3911,20 +4060,29 @@
                         },
                         "required": [
                             "artists"
-                        ],
-                        "description": "A subsonic-response element with a nested `artists` element on success."
+                        ]
                     }
                 ]
             },
             "GetArtistsResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetArtistsSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested artists element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetArtistsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetArtistsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartists/"
+                }
             },
             "Bookmark": {
                 "type": "object",
@@ -4000,20 +4158,29 @@
                         },
                         "required": [
                             "bookmarks"
-                        ],
-                        "description": "A subsonic-response element with a nested `bookmarks` element on success."
+                        ]
                     }
                 ]
             },
             "GetBookmarksResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetBookmarksSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested bookmarks element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetBookmarksSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetBookmarksResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getbookmarks/"
+                }
             },
             "ChatMessage": {
                 "type": "object",
@@ -4073,20 +4240,29 @@
                         },
                         "required": [
                             "chatMessages"
-                        ],
-                        "description": "A subsonic-response element with a nested `chatMessages` element on success."
+                        ]
                     }
                 ]
             },
             "GetChatMessagesResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetChatMessagesSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested chatMessages element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetChatMessagesSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetChatMessagesResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getchatmessages/"
+                }
             },
             "Genre": {
                 "type": "object",
@@ -4146,20 +4322,29 @@
                         },
                         "required": [
                             "genres"
-                        ],
-                        "description": "A subsonic-response element with a nested `genres` element on success."
+                        ]
                     }
                 ]
             },
             "GetGenresResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetGenresSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested genres element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetGenresSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetGenresResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getgenres/"
+                }
             },
             "Index": {
                 "type": "object",
@@ -4242,20 +4427,29 @@
                         },
                         "required": [
                             "indexes"
-                        ],
-                        "description": "A subsonic-response element with a nested `indexes` element on success."
+                        ]
                     }
                 ]
             },
             "GetIndexesResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetIndexesSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested indexes element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetIndexesSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetIndexesResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getindexes/"
+                }
             },
             "InternetRadioStation": {
                 "type": "object",
@@ -4319,20 +4513,29 @@
                         },
                         "required": [
                             "internetRadioStations"
-                        ],
-                        "description": "A subsonic-response element with a nested `internetRadioStations` element on success."
+                        ]
                     }
                 ]
             },
             "GetInternetRadioStationsResponse": {
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GetInternetRadioStationsSuccessResponse"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                "type": "object",
+                "description": "A subsonic-response element with a nested internetRadioStations element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetInternetRadioStationsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
                     }
-                ]
+                },
+                "externalDocs": {
+                    "description": "GetInternetRadioStationsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getinternetradiostations/"
+                }
             },
             "License": {
                 "type": "object",
@@ -4379,20 +4582,92 @@
                         },
                         "required": [
                             "license"
-                        ],
-                        "description": "A subsonic-response element with a nested `license` element on success."
+                        ]
                     }
                 ]
             },
             "GetLicenseResponse": {
-                "oneOf": [
+                "type": "object",
+                "description": "A subsonic-response element with a nested license element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetLicenseSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetLicenseResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getlicense/"
+                }
+            },
+            "Lyrics": {
+                "type": "object",
+                "description": "Lyrics.",
+                "externalDocs": {
+                    "description": "Lyrics",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/lyrics/"
+                },
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "The lyrics"
+                    },
+                    "artist": {
+                        "type": "string",
+                        "description": "The artist name"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The song title"
+                    }
+                },
+                "required": [
+                    "lyrics"
+                ]
+            },
+            "GetLyricsSuccessResponse": {
+                "allOf": [
                     {
-                        "$ref": "#/components/schemas/GetLicenseSuccessResponse"
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
                     },
                     {
-                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                        "type": "object",
+                        "properties": {
+                            "lyrics": {
+                                "$ref": "#/components/schemas/Lyrics"
+                            }
+                        },
+                        "required": [
+                            "lyrics"
+                        ]
                     }
                 ]
+            },
+            "GetLyricsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested lyrics element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetLyricsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetLicenseResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyrics/"
+                }
             }
         }
     }
