@@ -2514,6 +2514,55 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicdirectory/"
                 }
             }
+        },
+        "/rest/getMusicFolders": {
+            "get": {
+                "summary": "Returns all configured top-level music folders.",
+                "description": "Returns all configured top-level music folders. Takes no extra parameters.",
+                "operationId": "getMusicFolders",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMusicFoldersResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getMusicFolders",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicfolders/"
+                }
+            }
         }
     },
     "components": {
@@ -4997,6 +5046,82 @@
                 "externalDocs": {
                     "description": "GetMusicDirectoryResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicdirectory/"
+                }
+            },
+            "MusicFolder": {
+                "type": "object",
+                "description": "MusicFolder.",
+                "externalDocs": {
+                    "description": "MusicFolder",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/musicfolder/"
+                },
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The folder name"
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "MusicFolders": {
+                "type": "object",
+                "description": "MusicFolders.",
+                "externalDocs": {
+                    "description": "MusicFolders",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/musicfolders/"
+                },
+                "properties": {
+                    "musicFolder": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MusicFolder"
+                        },
+                        "description": "The folders"
+                    }
+                }
+            },
+            "GetMusicFoldersSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "musicFolders": {
+                                "$ref": "#/components/schemas/MusicFolders"
+                            }
+                        },
+                        "required": [
+                            "musicFolders"
+                        ]
+                    }
+                ]
+            },
+            "GetMusicFoldersResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested musicFolders element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetMusicFoldersSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetMusicFoldersResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicfolders/"
                 }
             }
         }
