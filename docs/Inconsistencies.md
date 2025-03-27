@@ -17,6 +17,7 @@
 * Extension not supported error is unclear, assumed servers will 404 on the request.
 * `PodcastEpisode` description "PodcastEntry extends Child". Wrong name used?
 * `NowPlayingEntry` `minutesAgo` format is unclear
+* `PlayQueue` description incorrect
 
 ## Future Improvements
 

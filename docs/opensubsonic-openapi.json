@@ -2062,6 +2062,37 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylists/"
                 }
             }
+        },
+        "/rest/getPlayQueue": {
+            "get": {
+                "summary": "Returns the state of the play queue for this user.",
+                "description": "Returns the state of the play queue for this user (as set by savePlayQueue). This includes the tracks in the play queue, the currently playing track, and the position within this track. Typically used to allow a user to move between different clients/apps while retaining the same play queue (for instance when listening to an audio book).",
+                "operationId": "getPlayQueue",
+                "tags": [
+                    "Bookmarks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPlayQueueResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getPlayQueue",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplayqueue/"
+                }
+            }
         }
     },
     "components": {
@@ -4984,6 +5015,87 @@
                 "externalDocs": {
                     "description": "GetPlaylistsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylists/"
+                }
+            },
+            "PlayQueue": {
+                "type": "object",
+                "description": "NowPlayingEntry.",
+                "externalDocs": {
+                    "description": "PlayQueue",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/playqueue/"
+                },
+                "properties": {
+                    "current": {
+                        "type": "string",
+                        "description": "ID of currently playing track"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "description": "Position in milliseconds of currently playing track"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "The user this queue belongs to"
+                    },
+                    "changed": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Date modified [ISO 8601]"
+                    },
+                    "changedBy": {
+                        "type": "string",
+                        "description": "Name of client app"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "The list of songs in the queue"
+                    }
+                },
+                "required": [
+                    "username",
+                    "changed",
+                    "changedBy"
+                ]
+            },
+            "GetPlayQueueSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "playQueue": {
+                                "$ref": "#/components/schemas/PlayQueue"
+                            }
+                        },
+                        "required": [
+                            "playQueue"
+                        ]
+                    }
+                ]
+            },
+            "GetPlayQueueResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `playQueue` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetPlayQueueSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetPlayQueueResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplayqueue/"
                 }
             }
         }
