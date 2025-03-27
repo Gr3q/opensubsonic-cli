@@ -2266,6 +2266,37 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getrandomsongs/"
                 }
             }
+        },
+        "/rest/getScanStatus": {
+            "get": {
+                "summary": "Returns the current status for media library scanning.",
+                "description": "Returns the current status for media library scanning. Takes no extra parameters.",
+                "operationId": "getScanStatus",
+                "tags": [
+                    "Media Library Scanning"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetScanStatusResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getScanStatus",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getscanstatus/"
+                }
+            }
         }
     },
     "components": {
@@ -5470,6 +5501,65 @@
                 "externalDocs": {
                     "description": "GetRandomSongsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getrandomsongs/"
+                }
+            },
+            "ScanStatus": {
+                "type": "object",
+                "description": "Scan status information.",
+                "externalDocs": {
+                    "description": "ScanStatus",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/scanstatus/"
+                },
+                "properties": {
+                    "scanning": {
+                        "type": "boolean",
+                        "description": "The status of the scan"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "description": "Scanned item count"
+                    }
+                },
+                "required": [
+                    "scanning"
+                ]
+            },
+            "GetScanStatusSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "scanStatus": {
+                                "$ref": "#/components/schemas/ScanStatus"
+                            }
+                        },
+                        "required": [
+                            "scanStatus"
+                        ]
+                    }
+                ]
+            },
+            "GetScanStatusResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `scanStatus` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetScanStatusSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetScanStatusResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getscanstatus/"
                 }
             }
         }
