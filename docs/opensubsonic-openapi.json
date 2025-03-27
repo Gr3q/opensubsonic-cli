@@ -2456,6 +2456,64 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyricsbysongid/"
                 }
             }
+        },
+        "/rest/getMusicDirectory": {
+            "get": {
+                "summary": "Returns a listing of all files in a music directory.",
+                "description": "Returns a listing of all files in a music directory. Typically used to get list of albums for an artist, or list of songs for an album.",
+                "operationId": "getMusicDirectory",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "A string which uniquely identifies the music folder. Obtained by calls to `getIndexes` or `getMusicDirectory`.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMusicDirectoryResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getMusicDirectory",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicdirectory/"
+                }
+            }
         }
     },
     "components": {
@@ -4847,6 +4905,98 @@
                 "externalDocs": {
                     "description": "GetLyricsBySongIdResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getlyricsbysongid/"
+                }
+            },
+            "Directory": {
+                "type": "object",
+                "description": "Directory.",
+                "externalDocs": {
+                    "description": "Directory",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/directory/"
+                },
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The id"
+                    },
+                    "parent": {
+                        "type": "string",
+                        "description": "Parent item"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The directory name"
+                    },
+                    "starred": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Starred date [ISO 8601]"
+                    },
+                    "userRating": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 5,
+                        "description": "The user rating [1-5]"
+                    },
+                    "averageRating": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 5,
+                        "description": "The average rating [1-5]"
+                    },
+                    "playCount": {
+                        "type": "integer",
+                        "description": "The play count"
+                    },
+                    "child": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "The directory content"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "GetMusicDirectorySuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "directory": {
+                                "$ref": "#/components/schemas/Directory"
+                            }
+                        },
+                        "required": [
+                            "directory"
+                        ]
+                    }
+                ]
+            },
+            "GetMusicDirectoryResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested directory element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetMusicDirectorySuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetMusicDirectoryResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicdirectory/"
                 }
             }
         }
