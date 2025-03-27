@@ -11,16 +11,22 @@
     ],
     "security": [
         {
-            "apiKeyAuth": []
+            "apiKeyAuth": [],
+            "protocolVersion": [],
+            "clientName": []
         },
         {
             "username": [],
-            "legacyPassword": []
+            "legacyPassword": [],
+            "protocolVersion": [],
+            "clientName": []
         },
         {
             "username": [],
             "token": [],
-            "salt": []
+            "salt": [],
+            "protocolVersion": [],
+            "clientName": []
         }
     ],
     "paths": {
@@ -43,13 +49,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -91,13 +91,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -148,13 +142,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -205,13 +193,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -266,13 +248,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -312,13 +288,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -374,13 +344,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -582,13 +546,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -621,13 +579,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -660,13 +612,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -699,13 +645,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -738,13 +678,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -777,13 +711,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -816,13 +744,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -855,13 +777,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -894,13 +810,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -929,13 +839,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -968,13 +872,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1014,13 +912,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1060,13 +952,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1164,13 +1050,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1268,13 +1148,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1314,13 +1188,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1381,13 +1249,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1448,13 +1310,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1494,13 +1350,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1539,13 +1389,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1576,13 +1420,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1635,13 +1473,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1678,13 +1510,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1733,13 +1559,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1763,13 +1583,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1818,13 +1632,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1855,13 +1663,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1892,13 +1694,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1947,13 +1743,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -1994,13 +1784,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2043,13 +1827,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2080,13 +1858,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2127,13 +1899,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2164,13 +1930,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2199,16 +1959,15 @@
                 "tags": [
                     "System"
                 ],
-                "security": [],
+                "security": [
+                    {
+                        "protocolVersion": [],
+                        "clientName": []
+                    }
+                ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2248,13 +2007,7 @@
                         }
                     },
                     {
-                        "$ref": "#/components/parameters/v"
-                    },
-                    {
                         "$ref": "#/components/parameters/f"
-                    },
-                    {
-                        "$ref": "#/components/parameters/c"
                     }
                 ],
                 "responses": {
@@ -2307,18 +2060,9 @@
             }
         },
         "parameters": {
-            "v": {
-                "name": "v",
-                "description": "The protocol version implemented by the client, i.e., the version of the subsonic-rest-api.xsd schema used (see below).",
-                "in": "query",
-                "required": true,
-                "schema": {
-                    "type": "string"
-                }
-            },
             "f": {
                 "name": "f",
-                "description": "The response format. Must be 'xml' or 'json'. For the purposes of this document, only 'json' is described.",
+                "description": "The response format. Must be 'xml' or 'json'. For the purposes of this document, only `json` is allowed.",
                 "in": "query",
                 "required": true,
                 "schema": {
@@ -2326,51 +2070,6 @@
                     "enum": [
                         "json"
                     ]
-                }
-            },
-            "c": {
-                "name": "c",
-                "description": "A unique string identifying the client application.",
-                "in": "query",
-                "required": true,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "u": {
-                "name": "u",
-                "description": "The username.",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "t": {
-                "name": "t",
-                "description": "(Since 1.13.0) The authentication token computed as md5(password + salt). `u` and `s` must be specified. See https://opensubsonic.netlify.app/docs/api-reference/#authentication for details.",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "s": {
-                "name": "s",
-                "description": "(Since 1.13.0) A random string (“salt”) used as input for computing the password hash. `u` and `t` must be specified. See https://opensubsonic.netlify.app/docs/api-reference/#authentication for details.",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "p": {
-                "name": "p",
-                "description": "The password, either in clear text or hex-encoded with a “enc:” prefix. Since 1.13.0 this should only be used for testing purposes. `u` must be specified.",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
                 }
             }
         },
@@ -2404,6 +2103,18 @@
                 "in": "query",
                 "name": "s",
                 "description": "(Since 1.13.0) A random string (“salt”) used as input for computing the password hash. `u` and `t` must be specified. See https://opensubsonic.netlify.app/docs/api-reference/#authentication for details."
+            },
+            "protocolVersion": {
+                "type": "apiKey",
+                "name": "v",
+                "description": "The protocol version implemented by the client, i.e., the version of the subsonic-rest-api.xsd schema used (see below).",
+                "in": "query"
+            },
+            "clientName": {
+                "type": "apiKey",
+                "name": "c",
+                "description": "A unique string identifying the client application.",
+                "in": "query"
             }
         },
         "schemas": {
