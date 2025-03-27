@@ -14,6 +14,7 @@
 * `internetRadioStation` `homePageUrl` has wrong details
 * `getLyrics` `artist` and `title` query parameters are really optional?
 * is `getLyrics` returns only one element?
+* Extension not supported error is unclear, assumed servers will 404 on the request.
 
 ## Future Improvements
 

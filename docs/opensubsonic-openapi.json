@@ -2397,8 +2397,8 @@
         },
         "/rest/getLyricsBySongId": {
             "get": {
-                "summary": "Add support for synchronized lyrics, multiple languages, and retrieval by song ID",
-                "description": "Retrieves all structured lyrics from the server for a given song. The lyrics can come from embedded tags (SYLT/USLT), LRC file/text file, or any other external source.",
+                "summary": "Add support for synchronized lyrics, multiple languages, and retrieval by song ID. ",
+                "description": "OpenSubsonic extension name `songLyrics` (As returned by `getOpenSubsonicExtensions`). Retrieves all structured lyrics from the server for a given song. The lyrics can come from embedded tags (SYLT/USLT), LRC file/text file, or any other external source.",
                 "operationId": "getLyricsBySongId",
                 "tags": [
                     "Media Retrieval",
@@ -2446,6 +2446,9 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Extension not supported."
                     }
                 },
                 "externalDocs": {
