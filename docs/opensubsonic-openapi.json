@@ -2563,6 +2563,65 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicfolders/"
                 }
             }
+        },
+        "/rest/getNewestPodcasts": {
+            "get": {
+                "summary": "Returns the most recently published Podcast episodes.",
+                "description": "Returns the most recently published Podcast episodes.",
+                "operationId": "getNewestPodcasts",
+                "tags": [
+                    "Podcast"
+                ],
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "The maximum number of episodes to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetNewestPodcastsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getNewestPodcasts",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getnewestpodcasts/"
+                }
+            }
         }
     },
     "components": {
@@ -5122,6 +5181,117 @@
                 "externalDocs": {
                     "description": "GetMusicFoldersResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getmusicfolders/"
+                }
+            },
+            "PodcastStatus": {
+                "type": "string",
+                "description": "An enumeration of possible podcast statuses",
+                "externalDocs": {
+                    "description": "PodcastStatus",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/podcaststatus/"
+                },
+                "enum": [
+                    "new",
+                    "downloading",
+                    "completed",
+                    "error",
+                    "deleted",
+                    "skipped"
+                ]
+            },
+            "PodcastEpisode": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Child"
+                    },
+                    {
+                        "type": "object",
+                        "description": "A podcast episode.",
+                        "externalDocs": {
+                            "description": "PodcastEpisode",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/podcastepisode/"
+                        },
+                        "properties": {
+                            "streamId": {
+                                "type": "string",
+                                "description": "ID used for streaming podcast"
+                            },
+                            "channelId": {
+                                "type": "string",
+                                "description": "TID of the podcast channel"
+                            },
+                            "description": {
+                                "type": "string",
+                                "description": "Episode description"
+                            },
+                            "status": {
+                                "$ref": "#/components/schemas/PodcastStatus"
+                            },
+                            "publishDate": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Date the episode was published [ISO 8601]"
+                            }
+                        },
+                        "required": [
+                            "channelId",
+                            "status"
+                        ]
+                    }
+                ]
+            },
+            "NewestPodcasts": {
+                "type": "object",
+                "description": "NewestPodcasts.",
+                "externalDocs": {
+                    "description": "NewestPodcasts",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/newestpodcasts/"
+                },
+                "properties": {
+                    "episode": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PodcastEpisode"
+                        }
+                    }
+                }
+            },
+            "GetNewestPodcastsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "newestPodcasts": {
+                                "$ref": "#/components/schemas/NewestPodcasts"
+                            }
+                        },
+                        "required": [
+                            "newestPodcasts"
+                        ]
+                    }
+                ]
+            },
+            "GetNewestPodcastsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `newestPodcasts` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetNewestPodcastsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetNewestPodcastsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getnewestpodcasts/"
                 }
             }
         }

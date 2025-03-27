@@ -15,6 +15,7 @@
 * `getLyrics` `artist` and `title` query parameters are really optional?
 * is `getLyrics` returns only one element?
 * Extension not supported error is unclear, assumed servers will 404 on the request.
+* `PodcastEpisode` description "PodcastEntry extends Child". Wrong name used?
 
 ## Future Improvements
 
