@@ -2162,6 +2162,73 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getgenres/"
                 }
             }
+        },
+        "/rest/getIndexes": {
+            "get": {
+                "summary": "Returns an indexed structure of all artists.",
+                "description": "Returns an indexed structure of all artists.",
+                "operationId": "getIndexes",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "If specified, only return artists in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ifModifiedSince",
+                        "in": "query",
+                        "description": "If specified, only return a result if the artist collection has changed since the given time (in milliseconds since 1 Jan 1970).",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetIndexesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getIndexes",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getindexes/"
+                }
+            }
         }
     },
     "components": {
@@ -3990,6 +4057,102 @@
                 "oneOf": [
                     {
                         "$ref": "#/components/schemas/GetGenresSuccessResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SubsonicFailureResponse"
+                    }
+                ]
+            },
+            "Index": {
+                "type": "object",
+                "description": "An indexed artist list.",
+                "externalDocs": {
+                    "description": "Index",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/index_/"
+                },
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Index name"
+                    },
+                    "artist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Artist"
+                        },
+                        "description": "Artist list"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "Indexes": {
+                "type": "object",
+                "description": "Artist list.",
+                "externalDocs": {
+                    "description": "Indexes",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/indexes/"
+                },
+                "properties": {
+                    "ignoredArticles": {
+                        "type": "string",
+                        "description": "The ignored articles"
+                    },
+                    "lastModified": {
+                        "type": "integer",
+                        "description": "Last time the index was modified in milliseconds after January 1, 1970 UTC"
+                    },
+                    "shortcut": {
+                        "type": "array",
+                        "description": "Shortcut",
+                        "items": {
+                            "$ref": "#/components/schemas/Artist"
+                        }
+                    },
+                    "child": {
+                        "type": "array",
+                        "description": "Array of children",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        }
+                    },
+                    "index": {
+                        "type": "array",
+                        "description": "Indexed artists",
+                        "items": {
+                            "$ref": "#/components/schemas/Index"
+                        }
+                    }
+                },
+                "required": [
+                    "ignoredArticles",
+                    "lastModified"
+                ]
+            },
+            "GetIndexesSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "indexes": {
+                                "$ref": "#/components/schemas/Indexes"
+                            }
+                        },
+                        "required": [
+                            "indexes"
+                        ],
+                        "description": "A subsonic-response element with a nested `indexes` element on success."
+                    }
+                ]
+            },
+            "GetIndexesResponse": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/GetIndexesSuccessResponse"
                     },
                     {
                         "$ref": "#/components/schemas/SubsonicFailureResponse"

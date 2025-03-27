@@ -10,6 +10,7 @@
 * `getAvatar` `username` parameter is "required" and has a "default" as well.
 * `getCaptions` return payload not clear
 * `getCoverArt` `size` param type not specified, I assume `int` as pixels
+* `Indexes` `ignoredArticles` pattern is unclear, it was comma-separated list as string before
 
 ## Future Improvements
 
