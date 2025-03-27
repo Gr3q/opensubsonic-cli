@@ -18,7 +18,9 @@
 * `PodcastEpisode` description "PodcastEntry extends Child". Wrong name used?
 * `NowPlayingEntry` `minutesAgo` format is unclear
 * `PlayQueue` description incorrect
+* `PodcastChannel` `errorMessage` existence could depend on `status` in documentation?
 
 ## Future Improvements
 
 * Could use inheritance for ArtistInfo and ArtistInfo2
+* `getPodcasts` payload dependent on query param `includeEpisodes`, could indicate that.

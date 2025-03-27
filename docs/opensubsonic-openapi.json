@@ -2137,6 +2137,56 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcastepisode/"
                 }
             }
+        },
+        "/rest/getPodcasts": {
+            "get": {
+                "summary": "Returns all Podcast channels the server subscribes to, and (optionally) their episodes.",
+                "description": "Returns all Podcast channels the server subscribes to, and (optionally) their episodes. This method can also be used to return details for only one channel - refer to the id parameter. A typical use case for this method would be to first retrieve all channels without episodes, and then retrieve all episodes for the single channel the user selects.",
+                "operationId": "getPodcasts",
+                "tags": [
+                    "Podcast"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "(Since 1.9.0) If specified, only return the Podcast channel with this ID.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "includeEpisodes",
+                        "in": "query",
+                        "description": "(Since 1.9.0) Whether to include Podcast episodes in the returned result.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPodcastsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getPodcasts",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcasts/"
+                }
+            }
         }
     },
     "components": {
@@ -5178,6 +5228,114 @@
                 "externalDocs": {
                     "description": "GetPodcastEpisodeResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcastepisode/"
+                }
+            },
+            "PodcastChannel": {
+                "type": "object",
+                "description": "A Podcast channel",
+                "externalDocs": {
+                    "description": "PodcastChannel",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/podcastchannel/"
+                },
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The channel ID"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Podcast channel URL"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The channel title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The channel description"
+                    },
+                    "coverArt": {
+                        "type": "string",
+                        "description": "ID used for retrieving cover art"
+                    },
+                    "originalImageUrl": {
+                        "type": "string",
+                        "description": "URL for original image of podcast channel"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/PodcastStatus"
+                    },
+                    "errorMessage": {
+                        "type": "string",
+                        "description": "An error message"
+                    },
+                    "episode": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PodcastEpisode"
+                        },
+                        "description": "Podcast episodes with this channel"
+                    }
+                },
+                "required": [
+                    "id",
+                    "url",
+                    "status"
+                ]
+            },
+            "Podcasts": {
+                "type": "object",
+                "description": "Podcasts.",
+                "externalDocs": {
+                    "description": "Podcasts",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/podcasts/"
+                },
+                "properties": {
+                    "channel": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PodcastChannel"
+                        },
+                        "description": "Podcast channel(s)"
+                    }
+                }
+            },
+            "GetPodcastsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "podcasts": {
+                                "$ref": "#/components/schemas/Podcasts"
+                            }
+                        },
+                        "required": [
+                            "podcasts"
+                        ]
+                    }
+                ]
+            },
+            "GetPodcastsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `podcasts` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetPodcastsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetPodcastsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcasts/"
                 }
             }
         }
