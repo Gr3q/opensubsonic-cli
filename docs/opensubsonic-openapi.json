@@ -9,6 +9,11 @@
             "url": "https://api.server.test/v1"
         }
     ],
+    "security": [
+        {
+            "apiKeyAuth": []
+        }
+    ],
     "paths": {
         "/rest/addChatMessage": {
             "get": {
@@ -45,9 +50,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     },
                     {
                         "$ref": "#/components/parameters/p"
@@ -108,9 +110,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -177,9 +176,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -246,9 +242,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -319,9 +312,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -377,9 +367,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -451,9 +438,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -671,9 +655,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -722,9 +703,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -773,9 +751,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -824,9 +799,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -875,9 +847,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -926,9 +895,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -977,9 +943,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1028,9 +991,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1079,9 +1039,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1126,9 +1083,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1177,9 +1131,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1235,9 +1186,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1293,9 +1241,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1409,9 +1354,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1525,9 +1467,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1583,9 +1522,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1662,9 +1598,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1741,9 +1674,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1799,9 +1729,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1856,9 +1783,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1905,9 +1829,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -1976,9 +1897,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2031,9 +1949,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2098,9 +2013,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2140,9 +2052,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2207,9 +2116,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2256,9 +2162,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2305,9 +2208,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2372,9 +2272,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2431,9 +2328,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2492,9 +2386,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2541,9 +2432,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2600,9 +2488,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2649,9 +2534,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/s"
-                    },
-                    {
-                        "$ref": "#/components/parameters/apiKey"
                     }
                 ],
                 "responses": {
@@ -2680,6 +2562,7 @@
                 "tags": [
                     "System"
                 ],
+                "security": [],
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -2696,6 +2579,61 @@
                 "externalDocs": {
                     "description": "getOpenSubsonicExtensions",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getopensubsonicextensions/"
+                }
+            }
+        },
+        "/rest/getPlaylist": {
+            "get": {
+                "summary": "Returns a listing of files in a saved playlist.",
+                "description": "Returns a listing of files in a saved playlist.",
+                "operationId": "getPlaylist",
+                "tags": [
+                    "Playlists"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of the playlist to return, as obtained by `getPlaylists`.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPlaylistResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getPlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylist/"
                 }
             }
         }
@@ -2788,15 +2726,6 @@
                     "type": "string"
                 }
             },
-            "apiKey": {
-                "name": "apiKey",
-                "description": "[OS] An API key used for authentication. If specified, `p`, `t`, `s` nor `u` can be specified.",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                }
-            },
             "p": {
                 "name": "p",
                 "description": "The password, either in clear text or hex-encoded with a “enc:” prefix. Since 1.13.0 this should only be used for testing purposes. `u` must be specified.",
@@ -2805,6 +2734,14 @@
                 "schema": {
                     "type": "string"
                 }
+            }
+        },
+        "securitySchemes": {
+            "apiKeyAuth": {
+                "type": "apiKey",
+                "name": "apiKey",
+                "in": "query",
+                "description": "[OS] An API key used for authentication. If specified, `p`, `t`, `s` nor `u` can be specified."
             }
         },
         "schemas": {
@@ -5530,6 +5467,44 @@
                 "externalDocs": {
                     "description": "GetOpenSubsonicExtensionsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getopensubsonicextensions/"
+                }
+            },
+            "GetPlaylistSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "playlist": {
+                                "$ref": "#/components/schemas/PlaylistWithSongs"
+                            }
+                        },
+                        "required": [
+                            "playlist"
+                        ]
+                    }
+                ]
+            },
+            "GetPlaylistResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested playlist element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetPlaylistSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetPlaylistResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getplaylist/"
                 }
             }
         }
