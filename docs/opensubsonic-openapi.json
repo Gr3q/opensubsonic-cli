@@ -2430,6 +2430,46 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs2/"
                 }
             }
+        },
+        "/rest/getSong": {
+            "get": {
+                "summary": "Returns details for a song.",
+                "description": "Returns details for a song.",
+                "operationId": "getSong",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The song ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetSongResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getSong",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsong/"
+                }
+            }
         }
     },
     "components": {
@@ -5841,6 +5881,44 @@
                 "externalDocs": {
                     "description": "GetSimilarSongs2Response",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsimilarsongs2/"
+                }
+            },
+            "GetSongSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "song": {
+                                "$ref": "#/components/schemas/Child"
+                            }
+                        },
+                        "required": [
+                            "song"
+                        ]
+                    }
+                ]
+            },
+            "GetSongResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `song` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetSongSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetSongResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsong/"
                 }
             }
         }
