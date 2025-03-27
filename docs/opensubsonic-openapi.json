@@ -2622,6 +2622,55 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getnewestpodcasts/"
                 }
             }
+        },
+        "/rest/getNowPlaying": {
+            "get": {
+                "summary": "Returns what is currently being played by all users.",
+                "description": "Returns what is currently being played by all users. Takes no extra parameters.",
+                "operationId": "getNowPlaying",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/v"
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    },
+                    {
+                        "$ref": "#/components/parameters/c"
+                    },
+                    {
+                        "$ref": "#/components/parameters/u"
+                    },
+                    {
+                        "$ref": "#/components/parameters/t"
+                    },
+                    {
+                        "$ref": "#/components/parameters/s"
+                    },
+                    {
+                        "$ref": "#/components/parameters/apiKey"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetNowPlayingResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getNowPlaying",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getnowplaying/"
+                }
+            }
         }
     },
     "components": {
@@ -5292,6 +5341,102 @@
                 "externalDocs": {
                     "description": "GetNewestPodcastsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getnewestpodcasts/"
+                }
+            },
+            "NowPlayingEntry": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Child"
+                    },
+                    {
+                        "type": "object",
+                        "description": "NowPlayingEntry.",
+                        "externalDocs": {
+                            "description": "NowPlayingEntry",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/nowplayingentry/"
+                        },
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "description": "The username"
+                            },
+                            "minutesAgo": {
+                                "type": "string",
+                                "description": "Last update"
+                            },
+                            "playerId": {
+                                "type": "string",
+                                "description": "Player Id"
+                            },
+                            "playerName": {
+                                "type": "string",
+                                "description": "Player name"
+                            }
+                        },
+                        "required": [
+                            "username",
+                            "minutesAgo",
+                            "playerId"
+                        ]
+                    }
+                ]
+            },
+            "NowPlaying": {
+                "type": "object",
+                "description": "nowPlaying.",
+                "externalDocs": {
+                    "description": "NowPlaying",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/nowplaying/"
+                },
+                "properties": {
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NowPlayingEntry"
+                        },
+                        "description": "The now playing entries"
+                    }
+                },
+                "required": [
+                    "entry"
+                ]
+            },
+            "GetNowPlayingSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "nowPlaying": {
+                                "$ref": "#/components/schemas/NowPlaying"
+                            }
+                        },
+                        "required": [
+                            "nowPlaying"
+                        ]
+                    }
+                ]
+            },
+            "GetNowPlayingResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `nowPlaying` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetNowPlayingSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetNowPlayingResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getnowplaying/"
                 }
             }
         }
