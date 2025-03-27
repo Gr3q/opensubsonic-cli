@@ -2187,6 +2187,85 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcasts/"
                 }
             }
+        },
+        "/rest/getRandomSongs": {
+            "get": {
+                "summary": "Returns random songs matching the given criteria.",
+                "description": "Returns random songs matching the given criteria.",
+                "operationId": "getRandomSongs",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "The maximum number of songs to return. Max 500.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "minimum": 0,
+                            "maximum": 500
+                        }
+                    },
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Only returns songs belonging to this genre.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fromYear",
+                        "in": "query",
+                        "description": "(Since 1.9.0) Only return songs from this year or later.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "toYear",
+                        "in": "query",
+                        "description": "Only return songs published before or in this year.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "Only return songs in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetRandomSongsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getRandomSongs",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getrandomsongs/"
+                }
+            }
         }
     },
     "components": {
@@ -5336,6 +5415,61 @@
                 "externalDocs": {
                     "description": "GetPodcastsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getpodcasts/"
+                }
+            },
+            "Songs": {
+                "type": "object",
+                "description": "Songs list.",
+                "externalDocs": {
+                    "description": "Songs",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/songs/"
+                },
+                "properties": {
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "List of songs"
+                    }
+                }
+            },
+            "GetRandomSongsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "randomSongs": {
+                                "$ref": "#/components/schemas/Songs"
+                            }
+                        },
+                        "required": [
+                            "randomSongs"
+                        ]
+                    }
+                ]
+            },
+            "GetRandomSongsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `randomSongs` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetRandomSongsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetRandomSongsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getrandomsongs/"
                 }
             }
         }
