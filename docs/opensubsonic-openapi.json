@@ -2713,6 +2713,37 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getuser/"
                 }
             }
+        },
+        "/rest/getUsers": {
+            "get": {
+                "summary": "Get details about all users, including which authorization roles and folder access they have",
+                "description": "Get details about all users, including which authorization roles and folder access they have. Only users with admin privileges are allowed to call this method.",
+                "operationId": "getUsers",
+                "tags": [
+                    "User Management"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUsersResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getUsers",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getusers/"
+                }
+            }
         }
     },
     "components": {
@@ -6528,6 +6559,61 @@
                 "externalDocs": {
                     "description": "GetUserResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getuser/"
+                }
+            },
+            "Users": {
+                "type": "object",
+                "description": "users.",
+                "externalDocs": {
+                    "description": "Users",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/users/"
+                },
+                "properties": {
+                    "user": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        },
+                        "description": "Array of users"
+                    }
+                }
+            },
+            "GetUsersSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "users": {
+                                "$ref": "#/components/schemas/Users"
+                            }
+                        },
+                        "required": [
+                            "users"
+                        ]
+                    }
+                ]
+            },
+            "GetUsersResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `user` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetUsersSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetUsersResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getusers/"
                 }
             }
         }
