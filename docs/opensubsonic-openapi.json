@@ -2744,6 +2744,46 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getusers/"
                 }
             }
+        },
+        "/rest/getVideoInfo": {
+            "get": {
+                "summary": "Returns details for a video.",
+                "description": "Returns details for a video, including information about available audio tracks, subtitles (captions) and conversions.",
+                "operationId": "getVideoInfo",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The video ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetVideoInfoResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getVideoInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideoinfo/"
+                }
+            }
         }
     },
     "components": {
@@ -6614,6 +6654,48 @@
                 "externalDocs": {
                     "description": "GetUsersResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getusers/"
+                }
+            },
+            "VideoInfo": {
+                "type": "object",
+                "description": "videoInfo. TODO"
+            },
+            "GetVideoInfoSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "videoInfo": {
+                                "$ref": "#/components/schemas/VideoInfo"
+                            }
+                        },
+                        "required": [
+                            "videoInfo"
+                        ]
+                    }
+                ]
+            },
+            "GetVideoInfoResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `videoInfo` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetVideoInfoSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetVideoInfoResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideoinfo/"
                 }
             }
         }
