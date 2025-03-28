@@ -2784,6 +2784,37 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideoinfo/"
                 }
             }
+        },
+        "/rest/getVideos": {
+            "get": {
+                "summary": "Returns all video files.",
+                "description": "Returns all video files.",
+                "operationId": "getVideos",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetVideosResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getVideos",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideos/"
+                }
+            }
         }
     },
     "components": {
@@ -6658,7 +6689,11 @@
             },
             "VideoInfo": {
                 "type": "object",
-                "description": "videoInfo. TODO"
+                "description": "videoInfo. TODO",
+                "externalDocs": {
+                    "description": "VideoInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/videoinfo/"
+                }
             },
             "GetVideoInfoSuccessResponse": {
                 "allOf": [
@@ -6696,6 +6731,52 @@
                 "externalDocs": {
                     "description": "GetVideoInfoResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideoinfo/"
+                }
+            },
+            "Videos": {
+                "type": "object",
+                "description": "videos. TODO",
+                "externalDocs": {
+                    "description": "Videos",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/videos/"
+                }
+            },
+            "GetVideosSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "videos": {
+                                "$ref": "#/components/schemas/Videos"
+                            }
+                        },
+                        "required": [
+                            "videos"
+                        ]
+                    }
+                ]
+            },
+            "GetVideosResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `videos` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetVideosSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetVideosResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideos/"
                 }
             }
         }
