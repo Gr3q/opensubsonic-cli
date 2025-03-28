@@ -20,6 +20,7 @@
 * `PlayQueue` description incorrect
 * `PodcastChannel` `errorMessage` existence could depend on `status` in documentation?
 * `GetSimilarSongs` and `GetSimilarSongs2` response type is the same in the spec (not the names)?
+* `User` example uses booleans and integers as strings, but they are typed as booleans and integers.
 
 ## Future Improvements
 

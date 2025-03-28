@@ -2673,6 +2673,46 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/gettopsongs/"
                 }
             }
+        },
+        "/rest/getUser": {
+            "get": {
+                "summary": "Get details about a given user, including which authorization roles and folder access it has.",
+                "description": "Get details about a given user, including which authorization roles and folder access it has. Can be used to enable/disable certain features in the client, such as jukebox control.",
+                "operationId": "getUser",
+                "tags": [
+                    "User Management"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "The name of the user to retrieve. You can only retrieve your own user unless you have admin privileges.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getUser",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getuser/"
+                }
+            }
         }
     },
     "components": {
@@ -6353,6 +6393,141 @@
                 "externalDocs": {
                     "description": "GetTopSongsResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/gettopsongs/"
+                }
+            },
+            "User": {
+                "type": "object",
+                "description": "user.",
+                "externalDocs": {
+                    "description": "User",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/user/"
+                },
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Username"
+                    },
+                    "scrobblingEnabled": {
+                        "type": "boolean",
+                        "description": "Scrobbling enabled"
+                    },
+                    "maxBitRate": {
+                        "type": "integer"
+                    },
+                    "adminRole": {
+                        "type": "boolean",
+                        "description": "Whether the user is an admin"
+                    },
+                    "settingsRole": {
+                        "type": "boolean",
+                        "description": "Whether the user is can edit settings"
+                    },
+                    "downloadRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can download"
+                    },
+                    "uploadRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can upload"
+                    },
+                    "playlistRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can create playlists"
+                    },
+                    "coverArtRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can get cover art"
+                    },
+                    "commentRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can create comments"
+                    },
+                    "podcastRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can create/refresh podcasts"
+                    },
+                    "streamRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can stream"
+                    },
+                    "jukeboxRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can control the jukebox"
+                    },
+                    "shareRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can create a stream"
+                    },
+                    "videoConversionRole": {
+                        "type": "boolean",
+                        "description": "Whether the user can convert videos"
+                    },
+                    "avatarLastChanged": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Last time the avatar was changed [ISO 8601]"
+                    },
+                    "folder": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "Folder ID(s)"
+                    }
+                },
+                "required": [
+                    "username",
+                    "scrobblingEnabled",
+                    "adminRole",
+                    "settingsRole",
+                    "downloadRole",
+                    "uploadRole",
+                    "playlistRole",
+                    "coverArtRole",
+                    "commentRole",
+                    "podcastRole",
+                    "streamRole",
+                    "jukeboxRole",
+                    "shareRole",
+                    "videoConversionRole"
+                ]
+            },
+            "GetUserSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "user": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        },
+                        "required": [
+                            "user"
+                        ]
+                    }
+                ]
+            },
+            "GetUserResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `user` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetUserSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetUserResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getuser/"
                 }
             }
         }
