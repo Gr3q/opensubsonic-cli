@@ -2622,6 +2622,57 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getstarred2/"
                 }
             }
+        },
+        "/rest/getTopSongs": {
+            "get": {
+                "summary": "Returns top songs for the given artist.",
+                "description": "Returns top songs for the given artist, using data from last.fm.",
+                "operationId": "getTopSongs",
+                "tags": [
+                    "Browsing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The artist name.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "The maximum number of songs to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 50,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTopSongsResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getTopSongs",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/gettopsongs/"
+                }
+            }
         }
     },
     "components": {
@@ -6247,6 +6298,61 @@
                 "externalDocs": {
                     "description": "GetStarred2Response",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getstarred2/"
+                }
+            },
+            "TopSongs": {
+                "type": "object",
+                "description": "TopSongs list.",
+                "externalDocs": {
+                    "description": "TopSongs",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/topsongs/"
+                },
+                "properties": {
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "List of songs"
+                    }
+                }
+            },
+            "GetTopSongsSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "topSongs": {
+                                "$ref": "#/components/schemas/TopSongs"
+                            }
+                        },
+                        "required": [
+                            "topSongs"
+                        ]
+                    }
+                ]
+            },
+            "GetTopSongsResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `topSongs` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetTopSongsSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetTopSongsResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/gettopsongs/"
                 }
             }
         }
