@@ -2542,6 +2542,46 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsongsbygenre/"
                 }
             }
+        },
+        "/rest/getStarred": {
+            "get": {
+                "summary": "Returns starred songs, albums and artists.",
+                "description": "Returns starred songs, albums and artists.",
+                "operationId": "getStarred",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.12.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetStarredResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getStarred",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getstarred/"
+                }
+            }
         }
     },
     "components": {
@@ -6029,6 +6069,75 @@
                 "externalDocs": {
                     "description": "GetSongsByGenreResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsongsbygenre/"
+                }
+            },
+            "Starred": {
+                "type": "object",
+                "description": "starred.",
+                "externalDocs": {
+                    "description": "Starred",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/starred/"
+                },
+                "properties": {
+                    "artist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Artist"
+                        },
+                        "description": "Starred artists"
+                    },
+                    "album": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Starred albums"
+                    },
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Starred songs"
+                    }
+                }
+            },
+            "GetStarredSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "starred": {
+                                "$ref": "#/components/schemas/Starred"
+                            }
+                        },
+                        "required": [
+                            "starred"
+                        ]
+                    }
+                ]
+            },
+            "GetStarredResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `starred` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetStarredSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetStarredResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getstarred/"
                 }
             }
         }
