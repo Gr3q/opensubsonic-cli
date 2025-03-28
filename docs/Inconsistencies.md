@@ -28,4 +28,5 @@
 ## Future Improvements
 
 * Could use inheritance for ArtistInfo and ArtistInfo2
-* `getPodcasts` payload dependent on query param `includeEpisodes`, could indicate that.
+* `getPodcasts` payload dependent on query param `includeEpisodes`, but it doesn't indicate that structurally.
+* `jukeboxControl` payload dependent on query param `action: get`, but it doesn't indicate that structurally.

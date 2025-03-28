@@ -2879,6 +2879,87 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/hls/"
                 }
             }
+        },
+        "/rest/jukeboxControl": {
+            "get": {
+                "summary": "Controls the jukebox, i.e., playback directly on the server’s audio hardware.",
+                "description": "Controls the jukebox, i.e., playback directly on the server’s audio hardware. Note: The user must be authorized to control the jukebox (see Settings > Users > User is allowed to play files in jukebox mode).",
+                "operationId": "jukeboxControl",
+                "tags": [
+                    "Jukebox"
+                ],
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "query",
+                        "description": "The operation to perform. Must be one of: get, status (since 1.7.0), set (since 1.7.0), start, stop, skip, add, clear, remove, shuffle, setGain",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/JukeboxAction"
+                        }
+                    },
+                    {
+                        "name": "index",
+                        "in": "query",
+                        "description": "Used by `skip` and `remove`. Zero-based index of the song to skip to or remove.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "(Since 1.7.0) Used by `skip`. Start playing this many seconds into the track.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Used by `add` and `set`. ID of song to add to the jukebox playlist. Use multiple id parameters to add many songs in the same request. (set is similar to a clear followed by a add, but will not change the currently playing track.)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "gain",
+                        "in": "query",
+                        "description": "Used by `setGain` to control the playback volume. A float value between 0.0 and 1.0.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "minimum": 0.0,
+                            "maximum": 1.0
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JukeboxControlResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "jukeboxControl",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/jukeboxcontrol/"
+                }
+            }
         }
     },
     "components": {
@@ -6841,6 +6922,118 @@
                 "externalDocs": {
                     "description": "GetVideosResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getvideos/"
+                }
+            },
+            "JukeboxAction": {
+                "type": "string",
+                "description": "JukeBox action.",
+                "enum": [
+                    "get",
+                    "status",
+                    "set",
+                    "start",
+                    "stop",
+                    "skip",
+                    "add",
+                    "clear",
+                    "remove",
+                    "shuffle",
+                    "setGain"
+                ]
+            },
+            "JukeboxStatus": {
+                "type": "object",
+                "description": "jukeboxStatus.",
+                "externalDocs": {
+                    "description": "JukeboxStatus",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/jukeboxstatus/"
+                },
+                "properties": {
+                    "currentIndex": {
+                        "type": "integer",
+                        "description": "The current index of the song being played"
+                    },
+                    "playing": {
+                        "type": "boolean",
+                        "description": "Whether the queue is currently playing"
+                    },
+                    "volume": {
+                        "type": "integer",
+                        "description": "Volume, in a range of [0.0, 1.0]",
+                        "format": "float",
+                        "minimum": 0.0,
+                        "maximum": 1.0
+                    },
+                    "position": {
+                        "type": "integer",
+                        "description": "The current position of the track in seconds"
+                    }
+                },
+                "required": [
+                    "currentIndex",
+                    "playing",
+                    "volume"
+                ]
+            },
+            "JukeboxPlaylist": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/JukeboxStatus"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "entry": {
+                                "type": "array",
+                                "description": "The songs currently enqueued in the jukebox",
+                                "items": {
+                                    "$ref": "#/components/schemas/Child"
+                                }
+                            }
+                        },
+                        "externalDocs": {
+                            "description": "JukeboxPlaylist",
+                            "url": "https://opensubsonic.netlify.app/docs/responses/jukeboxplaylist/"
+                        }
+                    }
+                ]
+            },
+            "JukeboxControlSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "jukeboxStatus": {
+                                "$ref": "#/components/schemas/JukeboxStatus"
+                            },
+                            "jukeboxPlaylist": {
+                                "$ref": "#/components/schemas/JukeboxPlaylist"
+                            }
+                        }
+                    }
+                ]
+            },
+            "JukeboxControlResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested :\n\n- jukeboxStatus for all actions but get\n- jukeboxPlaylist for get action",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/JukeboxControlSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "JukeboxControlSuccessResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/jukeboxcontrol/"
                 }
             }
         }
