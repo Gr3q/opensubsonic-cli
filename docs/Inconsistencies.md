@@ -23,6 +23,7 @@
 * `User` example uses booleans and integers as strings, but they are typed as booleans and integers.
 * `VideoInfo` is not documented
 * `Videos` is not documented
+* `hls` endpoint summary matches `download`
 
 ## Future Improvements
 
