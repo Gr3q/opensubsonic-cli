@@ -2470,6 +2470,78 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsong/"
                 }
             }
+        },
+        "/rest/getSongsByGenre": {
+            "get": {
+                "summary": "Returns songs in a given genre.",
+                "description": "Returns songs in a given genre.",
+                "operationId": "getSongsByGenre",
+                "tags": [
+                    "Lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "The genre, as returned by `getGenres`.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "The maximum number of songs to return. Max 500.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "minimum": 0,
+                            "maximum": 500
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "The offset. Useful if you want to page through the songs in a genre.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.12.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetSongsByGenreResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getSongsByGenre",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsongsbygenre/"
+                }
+            }
         }
     },
     "components": {
@@ -5919,6 +5991,44 @@
                 "externalDocs": {
                     "description": "GetSongResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getsong/"
+                }
+            },
+            "GetSongsByGenreSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "songsByGenre": {
+                                "$ref": "#/components/schemas/Songs"
+                            }
+                        },
+                        "required": [
+                            "songsByGenre"
+                        ]
+                    }
+                ]
+            },
+            "GetSongsByGenreResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `songsByGenre` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetSongsByGenreSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetSongsByGenreResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getsongsbygenre/"
                 }
             }
         }
