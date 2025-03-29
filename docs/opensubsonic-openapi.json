@@ -34,7 +34,7 @@
             "get": {
                 "summary": "Adds a message to the chat log.",
                 "description": "Adds a message to the chat log.",
-                "operationId": "addChatMessage",
+                "operationId": "getAddChatMessage",
                 "tags": [
                     "Chat"
                 ],
@@ -55,6 +55,51 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "addChatMessage",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/addchatmessage/"
+                }
+            },
+            "post": {
+                "summary": "Adds a message to the chat log.",
+                "description": "Adds a message to the chat log.",
+                "operationId": "postAddChatMessage",
+                "tags": [
+                    "Chat"
+                ],
+                "requestBody": {
+                    "description": "The chat message.",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "The chat message."
+                                    }
+                                },
+                                "required": [
+                                    "message"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -4202,6 +4247,9 @@
                         }
                     }
                 }
+            },
+            "HTTPFormPostNotSupported": {
+                "description": "HTTP form POST (`formPost`) Extension not supported"
             },
             "BinaryResponse": {
                 "description": "Success (binary) or error (xml) response",
