@@ -3216,7 +3216,7 @@
         },
         "/rest/search2": {
             "get": {
-                "summary": "Returns a listing of files matching the given search criteria. Supports paging through the result.",
+                "summary": "Returns a listing of files matching the given search criteria. Supports paging through the result. (v2)",
                 "description": "Returns albums, artists and songs matching the given search criteria. Supports paging through the result.",
                 "operationId": "search2",
                 "tags": [
@@ -3326,6 +3326,121 @@
                 "externalDocs": {
                     "description": "search2",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/search2/"
+                }
+            }
+        },
+        "/rest/search3": {
+            "get": {
+                "summary": "Returns albums, artists and songs matching the given search criteria. Supports paging through the result. (v3)",
+                "description": "Returns albums, artists and songs matching the given search criteria. Supports paging through the result.\n\nMusic is organized according to ID3 tags.",
+                "operationId": "search3",
+                "tags": [
+                    "Searching"
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search query. Servers must support an empty query and return all the data to allow clients to properly access all the media information for offline sync.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "artistCount",
+                        "in": "query",
+                        "description": "Maximum number of artists to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "artistOffset",
+                        "in": "query",
+                        "description": "Search result offset for artists. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "albumCount",
+                        "in": "query",
+                        "description": "Maximum number of albums to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "albumOffset",
+                        "in": "query",
+                        "description": "Search result offset for albums. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "songCount",
+                        "in": "query",
+                        "description": "Maximum number of songs to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "songOffset",
+                        "in": "query",
+                        "description": "Search result offset for songs. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.12.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Search3Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "search3",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search3/"
                 }
             }
         }
@@ -7447,7 +7562,7 @@
                 },
                 "externalDocs": {
                     "description": "SearchResultResponse",
-                    "url": "https://opensubsonic.netlify.app/docs/endpoints/searchresult/"
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search/"
                 }
             },
             "SearchResult2": {
@@ -7516,7 +7631,76 @@
                 },
                 "externalDocs": {
                     "description": "SearchResult2Response",
-                    "url": "https://opensubsonic.netlify.app/docs/endpoints/searchresult2/"
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search2/"
+                }
+            },
+            "SearchResult3": {
+                "type": "object",
+                "description": "searchResult3",
+                "externalDocs": {
+                    "description": "SearchResult3",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/searchresult3/"
+                },
+                "properties": {
+                    "artist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ArtistID3"
+                        },
+                        "description": "Matching artists"
+                    },
+                    "album": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AlbumID3"
+                        },
+                        "description": "Matching albums"
+                    },
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Matching songs"
+                    }
+                }
+            },
+            "Search3SuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "searchResult3": {
+                                "$ref": "#/components/schemas/SearchResult3"
+                            }
+                        },
+                        "required": [
+                            "searchResult3"
+                        ]
+                    }
+                ]
+            },
+            "Search3Response": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `searchResult3` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/Search3SuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "SearchResult3Response",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search3/"
                 }
             }
         }
