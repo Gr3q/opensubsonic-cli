@@ -1,4 +1,4 @@
-# Inconsistencies
+# Inconsistencies/Issues
 
 * `ItemDate` description and spec doesn't match (in required fields)
 * Disc number must be a number but obviously it can be other things
@@ -28,6 +28,7 @@
 * `search` `any` parameter type unclear
 * `SearchResult` is not documented
 * `SearchResult2` all field details are incorrect
+* `stream` `timeOffset` param's description typo, "Transcode Offet"
 
 ## Future Improvements
 
@@ -38,4 +39,4 @@
 ## Differences from spec
 
 * Some typo fixes I failed to document:(
-* Added minimum: 0 to integer types where it's implied (`count`, `offset`, unix timstamp, `position`)
+* Added minimum: 0 to integer types where it's implied (`count`, `offset`, unix timestamp, `position`)
