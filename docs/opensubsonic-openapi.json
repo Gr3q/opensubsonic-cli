@@ -3978,6 +3978,217 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/updateshare/"
                 }
             }
+        },
+        "/rest/updateUser": {
+            "get": {
+                "summary": "Modifies an existing user on the server.",
+                "description": "Modifies an existing user on the server.",
+                "operationId": "updateUser",
+                "tags": [
+                    "User Management"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "The name of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "The password of the user, either in clear text of hex-encoded (see above).",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "The email address of the user.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ldapAuthenticated",
+                        "in": "query",
+                        "description": "Whether the user is authenicated in LDAP.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "adminRole",
+                        "in": "query",
+                        "description": "Whether the user is administrator.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "settingsRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to change personal settings and password.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "name": "streamRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to play files.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "name": "jukeboxRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to play files in jukebox mode.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "downloadRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to download files.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "uploadRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to upload files.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "coverArtRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to change cover art and tags.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },              
+                    {
+                        "name": "commentRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to create and edit comments and ratings.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "podcastRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to administrate Podcasts.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "shareRole",
+                        "in": "query",
+                        "description": "Whether the user is allowed to share files with anyone.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "videoConversionRole",
+                        "in": "query",
+                        "description": "(Since 1.15.0) Whether the user is allowed to start video conversions.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.12.0) IDs of the music folders the user is allowed access to. Include the parameter once for each folder.",
+                        "required": false,
+                        "explode": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "maxBitRate",
+                        "in": "query",
+                        "description": "(Since 1.13.0) The maximum bit rate (in Kbps) for the user. Audio streams of higher bit rates are automatically downsampled to this bit rate. Legal values: 0 (no limit), 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                32,
+                                40,
+                                48,
+                                56,
+                                64,
+                                80,
+                                96,
+                                112,
+                                128,
+                                160,
+                                192,
+                                224,
+                                256,
+                                320
+                            ]
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "updateUser",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/updateuser/"
+                }
+            }
         }
     },
     "components": {

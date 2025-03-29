@@ -32,6 +32,8 @@
 * [tokenInfo](https://opensubsonic.netlify.app/docs/responses/tokeninfo/) data is too deeply nested in docs?
 * [tokenInfo](https://opensubsonic.netlify.app/docs/endpoints/tokeninfo/) says "A subsonic-response element with a nested tokenInfo on success, or error 44 on invalid token.". Does that mean it cannot return any other error code on error?
 * `unstar` summary is incorrect
+* `updateuser` is missing `playlistRole` parameter?
+* `createuser` is missing `maxBitRate` parameter?
 
 ## Future Improvements
 
@@ -45,4 +47,4 @@
 * Added minimum: 0 to integer types where it's implied (`count`, `offset`, unix timestamp, `position`)
 * forces json format on every endpoint
 * All extensions are added to the schema and tagged as "Extension", and have a 404 return type as well that described as "Not Implemented"
-* Excluded `example`s, opted to use `externalDocs` only because it made the Swagger and Redoc generated documents harder to read. I might add them if they make sense for generated client code. 
+* Excluded `example`s, opted to use `externalDocs` only because it made the Swagger and Redoc generated documents harder to read. I might add them if they make sense for generated client code.
