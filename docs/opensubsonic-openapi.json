@@ -64,7 +64,7 @@
             },
             "post": {
                 "summary": "Adds a message to the chat log.",
-                "description": "Adds a message to the chat log. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "description": "Adds a message to the chat log.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postAddChatMessage",
                 "tags": [
                     "Chat"
@@ -150,7 +150,7 @@
             },
             "post": {
                 "summary": "Changes the password of an existing user on the server.",
-                "description": "Changes the password of an existing user on the server, using the following parameters. You can only change your own password unless you have admin privileges. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "description": "Changes the password of an existing user on the server, using the following parameters. You can only change your own password unless you have admin privileges.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postChangePassword",
                 "tags": [
                     "User Management"
@@ -301,7 +301,7 @@
             },
             "post": {
                 "summary": "Adds a new internet radio station.",
-                "description": "Adds a new internet radio station. Only users with admin privileges are allowed to call this method. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "description": "Adds a new internet radio station. Only users with admin privileges are allowed to call this method.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postCreateInternetRadioStation",
                 "tags": [
                     "Internet Radio"
@@ -416,7 +416,7 @@
             },
             "post": {
                 "summary": "Creates (or updates) a playlist.",
-                "description": "Creates (or updates) a playlist. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "description": "Creates (or updates) a playlist.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postCreatePlaylist",
                 "tags": [
                     "Playlists"
@@ -504,7 +504,7 @@
             },
             "post": {
                 "summary": "Adds a new Podcast channel.",
-                "description": "Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts). Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "description": "Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postCreatePodcastChannel",
                 "tags": [
                     "Podcast"
@@ -602,6 +602,61 @@
                                 }
                             }
                         }
+                    }
+                },
+                "externalDocs": {
+                    "description": "createShare",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createshare/"
+                }
+            },
+            "post": {
+                "summary": "Creates a public URL that can be used by anyone to stream music or video from the server.",
+                "description": "Creates a public URL that can be used by anyone to stream music or video from the server. The URL is short and suitable for posting on Facebook, Twitter etc. Note: The user must be authorized to share (see Settings > Users > User is allowed to share files with anyone). Since 1.6.0.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`).",
+                "operationId": "postCreateShare",
+                "tags": [
+                    "Sharing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "description": "ID of a song, album or video to share. Use one id parameter for each entry to share."
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "A user-defined description that will be displayed to people visiting the shared media."
+                                    },
+                                    "expires": {
+                                        "type": "integer",
+                                        "description": "The time at which the share expires. Given as milliseconds since 1970."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
