@@ -3592,8 +3592,7 @@
                 "description": "Streams a given media file.\n\nOpenSubsonic servers must not count access to this endpoint as a play and increase playcount. Clients can use the Scrobble endpoint to indicate that a media is played ensuring proper data in all cases.\n\nIf the server support the Transcode Offet extension, then it must accept the timeOffset parameter for music too.",
                 "operationId": "stream",
                 "tags": [
-                    "Media Retrieval",
-                    "Extension"
+                    "Media Retrieval"
                 ],
                 "parameters": [
                     {
@@ -3676,6 +3675,41 @@
                 "externalDocs": {
                     "description": "stream",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/stream/"
+                }
+            }
+        },
+        "/rest/tokenInfo": {
+            "get": {
+                "summary": "Returns information about an API key",
+                "description": "OpenSubsonic extension name `apiKeyAuthentication` (As returned by `getOpenSubsonicExtensions`). Returns data about an API key.",
+                "operationId": "tokenInfo",
+                "tags": [
+                    "System",
+                    "Extension"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTokenInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Extension not supported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "tokenInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/tokeninfo/"
                 }
             }
         }
@@ -7974,6 +8008,61 @@
                 "externalDocs": {
                     "description": "StartScanResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/startscan/"
+                }
+            },
+            "TokenInfo": {
+                "type": "object",
+                "description": "Information about an API key",
+                "externalDocs": {
+                    "description": "TokenInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/tokeninfo/"
+                },
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Username associated with token"
+                    }
+                },
+                "required": [
+                    "username"
+                ]
+            },
+            "GetTokenInfoSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "tokenInfo": {
+                                "$ref": "#/components/schemas/TokenInfo"
+                            }
+                        },
+                        "required": [
+                            "tokenInfo"
+                        ]
+                    }
+                ]
+            },
+            "GetTokenInfoResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested tokenInfo on success, or error 44 on invalid token.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/GetTokenInfoSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "GetTokenInfoResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/gettokeninfo/"
                 }
             }
         }

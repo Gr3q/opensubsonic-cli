@@ -29,6 +29,8 @@
 * `SearchResult` is not documented
 * `SearchResult2` all field details are incorrect
 * `stream` `timeOffset` param's description typo, "Transcode Offet"
+* [tokenInfo](https://opensubsonic.netlify.app/docs/responses/tokeninfo/) data is too deeply nested in docs?
+* [tokenInfo](https://opensubsonic.netlify.app/docs/endpoints/tokeninfo/) says "A subsonic-response element with a nested tokenInfo on success, or error 44 on invalid token.". Does that mean it cannot return any other error code on error?
 
 ## Future Improvements
 
