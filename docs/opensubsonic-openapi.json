@@ -696,7 +696,7 @@
                         "name": "email",
                         "in": "query",
                         "description": "The email address of the new user.",
-                        "required": false,
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -858,6 +858,132 @@
                     "description": "createUser",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/createuser/"
                 }
+            },
+            "post": {
+                "summary": "Creates a new user on the server.",
+                "description": "Creates a new user on the server.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postCreateUser",
+                "tags": [
+                    "User Management"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "The name of the new user."
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "The password of the new user, either in clear text or hex-encoded."
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "The email address of the new user."
+                                    },
+                                    "ldapAuthenticated": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is authenticated in LDAP.",
+                                        "default": false
+                                    },
+                                    "adminRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is administrator.",
+                                        "default": false
+                                    },
+                                    "settingsRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to change personal settings and password.",
+                                        "default": true
+                                    },
+                                    "streamRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to play files.",
+                                        "default": true
+                                    },
+                                    "jukeboxRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to play files in jukebox mode.",
+                                        "default": false
+                                    },
+                                    "downloadRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to download files.",
+                                        "default": false
+                                    },
+                                    "uploadRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to upload files.",
+                                        "default": false
+                                    },
+                                    "playlistRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to create and delete playlists. Since 1.8.0, changing this role has no effect.",
+                                        "default": false
+                                    },
+                                    "coverArtRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to change cover art and tags.",
+                                        "default": false
+                                    },
+                                    "commentRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to create and edit comments and ratings.",
+                                        "default": false
+                                    },
+                                    "podcastRole": {
+                                        "type": "boolean",
+                                        "description": "Whether the user is allowed to administrate Podcasts.",
+                                        "default": false
+                                    },
+                                    "shareRole": {
+                                        "type": "boolean",
+                                        "description": "(Since 1.8.0) Whether the user is allowed to share files with anyone.",
+                                        "default": false
+                                    },
+                                    "videoConversionRole": {
+                                        "type": "boolean",
+                                        "description": "(Since 1.15.0) Whether the user is allowed to start video conversions.",
+                                        "default": false
+                                    },
+                                    "musicFolderId": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "description": "(Since 1.12.0) IDs of the music folders the user is allowed access to. Include the parameter once for each folder. Default all folders."
+                                    }
+                                },
+                                "required": [
+                                    "username",
+                                    "password",
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "createUser",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createuser/"
+                }
             }
         },
         "/rest/deleteBookmark": {
@@ -968,6 +1094,50 @@
                     "description": "deleteInternetRadioStation",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteinternetradiostation/"
                 }
+            },
+            "post": {
+                "summary": "Deletes an existing internet radio station.",
+                "description": "Deletes an existing internet radio station. Only users with admin privileges are allowed to call this method.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeleteInternetRadioStation",
+                "tags": [
+                    "Internet Radio"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The ID for the station."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteInternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteinternetradiostation/"
+                }
             }
         },
         "/rest/deletePlaylist": {
@@ -995,6 +1165,50 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deletePlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteplaylist/"
+                }
+            },
+            "post": {
+                "summary": "Deletes a saved playlist.",
+                "description": "Deletes a saved playlist.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeletePlaylist",
+                "tags": [
+                    "Playlists"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "ID of the playlist to delete, as obtained by `getPlaylists`."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1034,6 +1248,50 @@
                     "description": "deletePodcastChannel",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deletepodcastchannel/"
                 }
+            },
+            "post": {
+                "summary": "Deletes a Podcast channel.",
+                "description": "Deletes a Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeletePodcastChannel",
+                "tags": [
+                    "Podcast"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The ID of the Podcast channel to delete."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deletePodcastChannel",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deletepodcastchannel/"
+                }
             }
         },
         "/rest/deletePodcastEpisode": {
@@ -1061,6 +1319,50 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deletePodcastEpisode",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deletepodcastepisode/"
+                }
+            },
+            "post": {
+                "summary": "Deletes a Podcast episode.",
+                "description": "Deletes a Podcast episode. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeletePodcastEpisode",
+                "tags": [
+                    "Podcast"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The ID of the Podcast episode to delete."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1100,6 +1402,50 @@
                     "description": "deleteShare",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteshare/"
                 }
+            },
+            "post": {
+                "summary": "Deletes an existing share.",
+                "description": "Deletes an existing share.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeleteShare",
+                "tags": [
+                    "Sharing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "ID of the share to delete."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteShare",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteshare/"
+                }
             }
         },
         "/rest/deleteUser": {
@@ -1127,6 +1473,50 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "deleteUser",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/deleteuser/"
+                }
+            },
+            "post": {
+                "summary": "Deletes an existing user on the server.",
+                "description": "Deletes an existing user on the server.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDeleteUser",
+                "tags": [
+                    "User Management"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "The name of the user to delete."
+                                    }
+                                },
+                                "required": [
+                                    "username"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1162,6 +1552,46 @@
                         "$ref": "#/components/responses/BinaryResponse"
                     }
                 }
+            },
+            "post": {
+                "summary": "Downloads a given media file.",
+                "description": "Downloads a given media file. Similar to stream, but this method returns the original media data without transcoding or downsampling.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDownload",
+                "tags": [
+                    "Media Retrieval"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "A string which uniquely identifies the file to download. Obtained by calls to getMusicDirectory."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BinaryResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                }
             }
         },
         "/rest/downloadPodcastEpisode": {
@@ -1194,6 +1624,46 @@
                 "externalDocs": {
                     "description": "downloadPodcastEpisode",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/downloadpodcastepisode/"
+                }
+            },
+            "post": {
+                "summary": "Request the server to start downloading a given Podcast episode.",
+                "description": "Request the server to start downloading a given Podcast episode. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postDownloadPodcastEpisode",
+                "tags": [
+                    "Podcast"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The ID of the Podcast episode to download."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
                 }
             }
         },
@@ -1229,6 +1699,57 @@
                                 }
                             }
                         }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbum",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbum/"
+                }
+            },
+            "post": {
+                "summary": "Returns details for an album.",
+                "description": "Returns details for an album, including a list of songs. This method organizes music according to ID3 tags.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetAlbum",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The album ID."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1275,6 +1796,57 @@
                     "description": "getAlbumInfo",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo/"
                 }
+            },
+            "post": {
+                "summary": "Returns album info.",
+                "description": "Returns album notes, image URLs etc, using data from last.fm.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetAlbumInfo",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The album ID or song ID."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo/"
+                }
             }
         },
         "/rest/getAlbumInfo2": {
@@ -1309,6 +1881,57 @@
                                 }
                             }
                         }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumInfo2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbuminfo2/"
+                }
+            },
+            "post": {
+                "summary": "Returns album info (v2).",
+                "description": "Similar to getAlbumInfo, but organizes music according to ID3 tags.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetAlbumInfo2",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The album ID or song ID."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1413,6 +2036,85 @@
                     "description": "getAlbumList",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist/"
                 }
+            },
+            "post": {
+                "summary": "Returns a list of random, newest, highest rated etc. albums.",
+                "description": "Returns a list of random, newest, highest rated etc. albums. Similar to the album lists on the home page of the Subsonic web interface.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetAlbumList",
+                "tags": [
+                    "Lists"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "$ref": "#/components/schemas/AlbumListType"
+                                    },
+                                    "size": {
+                                        "type": "integer",
+                                        "description": "The number of albums to return. Max 500.",
+                                        "default": 10,
+                                        "minimum": 1,
+                                        "maximum": 500
+                                    },
+                                    "offset": {
+                                        "type": "integer",
+                                        "description": "The list offset. Useful if you for example want to page through the list of newest albums.",
+                                        "default": 0,
+                                        "minimum": 0
+                                    },
+                                    "fromYear": {
+                                        "type": "integer",
+                                        "description": "Required if `type=='byYear'`. The first year in the range. If `fromYear` > `toYear` a reverse chronological list is returned."
+                                    },
+                                    "toYear": {
+                                        "type": "integer",
+                                        "description": "Required if `type=='byYear'`. The last year in the range."
+                                    },
+                                    "genre": {
+                                        "type": "string",
+                                        "description": "Required if `type=='byGenre'`. The name of the genre, e.g., “Rock”."
+                                    },
+                                    "musicFolderId": {
+                                        "type": "string",
+                                        "description": "(Since 1.11.0) Only return albums in the music folder with the given ID. See `getMusicFolders`."
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumList",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist/"
+                }
             }
         },
         "/rest/getAlbumList2": {
@@ -1511,6 +2213,85 @@
                     "description": "getAlbumList2",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist2/"
                 }
+            },
+            "post": {
+                "summary": "Returns a list of random, newest, highest rated etc. albums (v2).",
+                "description": "Similar to `getAlbumList`, but organizes music according to ID3 tags.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetAlbumList2",
+                "tags": [
+                    "Lists"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "$ref": "#/components/schemas/AlbumListType"
+                                    },
+                                    "size": {
+                                        "type": "integer",
+                                        "description": "The number of albums to return. Max 500.",
+                                        "default": 10,
+                                        "minimum": 1,
+                                        "maximum": 500
+                                    },
+                                    "offset": {
+                                        "type": "integer",
+                                        "description": "The list offset. Useful if you for example want to page through the list of newest albums.",
+                                        "default": 0,
+                                        "minimum": 0
+                                    },
+                                    "fromYear": {
+                                        "type": "integer",
+                                        "description": "Required if `type=='byYear'`. The first year in the range. If `fromYear` > `toYear` a reverse chronological list is returned."
+                                    },
+                                    "toYear": {
+                                        "type": "integer",
+                                        "description": "Required if `type=='byYear'`. The last year in the range."
+                                    },
+                                    "genre": {
+                                        "type": "string",
+                                        "description": "Required if `type=='byGenre'`. The name of the genre, e.g., “Rock”."
+                                    },
+                                    "musicFolderId": {
+                                        "type": "string",
+                                        "description": "(Since 1.11.0) Only return albums in the music folder with the given ID. See `getMusicFolders`."
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAlbumList2Response"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getAlbumList2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getalbumlist2/"
+                }
             }
         },
         "/rest/getArtist": {
@@ -1545,6 +2326,57 @@
                                 }
                             }
                         }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getArtist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartist/"
+                }
+            },
+            "post": {
+                "summary": "Returns details for an artist.",
+                "description": "Returns details for an artist, including a list of albums. This method organizes music according to ID3 tags.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetArtist",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The artist ID."
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetArtistResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1612,6 +2444,68 @@
                     "description": "getArtistInfo",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/getartistinfo/"
                 }
+            },
+            "post": {
+                "summary": "Returns artist info.",
+                "description": "Returns artist info with biography, image URLs and similar artists, using data from last.fm.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetArtistInfo",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The artist, album or song ID."
+                                    },
+                                    "count": {
+                                        "type": "integer",
+                                        "description": "Max number of similar artists to return.",
+                                        "default": 20,
+                                        "minimum": 0
+                                    },
+                                    "includeNotPresent": {
+                                        "type": "boolean",
+                                        "description": "Whether to return artists that are not present in the media library.",
+                                        "default": false
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetArtistInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "getArtistInfo",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartistinfo/"
+                }
             }
         },
         "/rest/getArtistInfo2": {
@@ -1667,6 +2561,68 @@
                                 }
                             }
                         }
+                    }
+                },
+                "externalDocs": {
+                    "description": "getArtistInfo2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/getartistinfo2/"
+                }
+            },
+            "post": {
+                "summary": "Returns artist info (v2).",
+                "description": "Similar to `getArtistInfo`, but organizes music according to ID3 tags.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postGetArtistInfo2",
+                "tags": [
+                    "Browsing"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The artist, album or song ID."
+                                    },
+                                    "count": {
+                                        "type": "integer",
+                                        "description": "Max number of similar artists to return.",
+                                        "default": 20,
+                                        "minimum": 0
+                                    },
+                                    "includeNotPresent": {
+                                        "type": "boolean",
+                                        "description": "Whether to return artists that are not present in the media library.",
+                                        "default": false
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetArtistInfo2Response"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
