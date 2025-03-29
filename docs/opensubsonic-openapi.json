@@ -3926,6 +3926,58 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/updateplaylist/"
                 }
             }
+        },
+        "/rest/updateShare": {
+            "get": {
+                "summary": "Updates the description and/or expiration date for an existing share.",
+                "description": "Updates the description and/or expiration date for an existing share.",
+                "operationId": "updateShare",
+                "tags": [
+                    "Sharing"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID of the share to update.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "A user-defined description that will be displayed to people visiting the shared media.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expires",
+                        "in": "query",
+                        "description": "The time at which the share expires. Given as milliseconds since 1970, or zero to remove the expiration.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "updateShare",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/updateshare/"
+                }
+            }
         }
     },
     "components": {
