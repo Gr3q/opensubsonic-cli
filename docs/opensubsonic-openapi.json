@@ -3113,6 +3113,106 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/scrobble/"
                 }
             }
+        },
+        "/rest/search": {
+            "get": {
+                "summary": "Returns a listing of files matching the given search criteria. Supports paging through the result.",
+                "deprecated": true,
+                "description": "Deprecated since 1.4.0, use search2 instead.\n\nReturns a listing of files matching the given search criteria. Supports paging through the result.",
+                "operationId": "search",
+                "tags": [
+                    "Searching"
+                ],
+                "parameters": [
+                    {
+                        "name": "artist",
+                        "in": "query",
+                        "description": "Artist to search for.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "album",
+                        "in": "query",
+                        "description": "Album to search for.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Song title to search for.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "any",
+                        "in": "query",
+                        "description": "Searches all fields.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Maximum number of results to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Search result offset. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "newerThan",
+                        "in": "query",
+                        "description": "Only return matches that are newer than this. Given as milliseconds since 1970.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "search",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search/"
+                }
+            }
         }
     },
     "components": {
@@ -7187,6 +7287,52 @@
                 "externalDocs": {
                     "description": "JukeboxControlSuccessResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/jukeboxcontrol/"
+                }
+            },
+            "SearchResult": {
+                "type": "object",
+                "description": "searchResult. TODO",
+                "externalDocs": {
+                    "description": "SearchResult",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/searchresult/"
+                }
+            },
+            "SearchSuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "searchResult": {
+                                "$ref": "#/components/schemas/SearchResult"
+                            }
+                        },
+                        "required": [
+                            "searchResult"
+                        ]
+                    }
+                ]
+            },
+            "SearchResponse": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `searchResult` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/SearchSuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "SearchResultResponse",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/searchresult/"
                 }
             }
         }

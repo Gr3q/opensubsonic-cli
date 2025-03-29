@@ -24,6 +24,9 @@
 * `VideoInfo` is not documented
 * `Videos` is not documented
 * `hls` endpoint summary matches `download`
+* Typo in `search` `album` parameters's comment
+* `search` `any` parameter type unclear
+* `SearchResult` is not documented
 
 ## Future Improvements
 
