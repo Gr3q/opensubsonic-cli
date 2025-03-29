@@ -4335,7 +4335,7 @@
             },
             "post": {
                 "summary": "Returns the state of the play queue for this user.",
-                "description": "Returns the state of the play queue for this user (as set by savePlayQueue). This includes the tracks in the play queue, the currently playing track, and the position within this track. Typically used to allow a user to move between different clients/apps while retaining the same play queue (for instance when listening to an audio book).",
+                "description": "Returns the state of the play queue for this user (as set by savePlayQueue). This includes the tracks in the play queue, the currently playing track, and the position within this track. Typically used to allow a user to move between different clients/apps while retaining the same play queue (for instance when listening to an audio book).\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postGetPlayQueue",
                 "tags": [
                     "Bookmarks"
@@ -4420,7 +4420,7 @@
             },
             "post": {
                 "summary": "Returns details for a podcast episode.",
-                "description": "OpenSubsonic extension name getPodcastEpisode (As returned by `getOpenSubsonicExtensions`). Returns details for a podcast episode.",
+                "description": "OpenSubsonic extension name `getPodcastEpisode` (As returned by `getOpenSubsonicExtensions`). Returns details for a podcast episode.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postGetPodcastEpisode",
                 "tags": [
                     "Podcast"
@@ -6364,7 +6364,7 @@
             },
             "post": {
                 "summary": "Saves the state of the play queue for this user.",
-                "description": "Saves the state of the play queue for this user. This includes the tracks in the play queue, the currently playing track, and the position within this track. Typically used to allow a user to move between different clients/apps while retaining the same play queue (for instance when listening to an audio book). `id` is optional. Send a call without any parameters to clear the currently saved queue.",
+                "description": "Saves the state of the play queue for this user. This includes the tracks in the play queue, the currently playing track, and the position within this track. Typically used to allow a user to move between different clients/apps while retaining the same play queue (for instance when listening to an audio book). `id` is optional. Send a call without any parameters to clear the currently saved queue.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postSavePlayQueue",
                 "tags": [
                     "Bookmarks"
@@ -6463,7 +6463,7 @@
             },
             "post": {
                 "summary": "Registers the local playback of one or more media files.",
-                "description": "Registers the local playback of one or more media files. Typically used when playing media that is cached on the client. This operation includes the following:\n\n* “Scrobbles” the media files on last.fm if the user has configured his/her last.fm credentials on the server.\n* Updates the play count and last played timestamp for the media files. (Since 1.11.0)\n* Makes the media files appear in the “Now playing” page in the web app, and appear in the list of songs returned by getNowPlaying (Since 1.11.0)\n\nSince 1.8.0 you may specify multiple id (and optionally time) parameters to scrobble multiple files.",
+                "description": "Registers the local playback of one or more media files. Typically used when playing media that is cached on the client. This operation includes the following:\n\n* “Scrobbles” the media files on last.fm if the user has configured his/her last.fm credentials on the server.\n* Updates the play count and last played timestamp for the media files. (Since 1.11.0)\n* Makes the media files appear in the “Now playing” page in the web app, and appear in the list of songs returned by getNowPlaying (Since 1.11.0)\n\nSince 1.8.0 you may specify multiple id (and optionally time) parameters to scrobble multiple files.\n\nRequires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postScrobble",
                 "tags": [
                     "Media Annotation"
