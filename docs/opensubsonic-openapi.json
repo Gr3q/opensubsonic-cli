@@ -3060,6 +3060,59 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/saveplayqueue/"
                 }
             }
+        },
+        "/rest/scrobble": {
+            "get": {
+                "summary": "Registers the local playback of one or more media files.",
+                "description": "Registers the local playback of one or more media files. Typically used when playing media that is cached on the client. This operation includes the following:\n\n* “Scrobbles” the media files on last.fm if the user has configured his/her last.fm credentials on the server.\n* Updates the play count and last played timestamp for the media files. (Since 1.11.0)\n* Makes the media files appear in the “Now playing” page in the web app, and appear in the list of songs returned by getNowPlaying (Since 1.11.0)\n\nSince 1.8.0 you may specify multiple id (and optionally time) parameters to scrobble multiple files.",
+                "operationId": "scrobble",
+                "tags": [
+                    "Media Annotation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "A string which uniquely identifies the file to scrobble.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "(Since 1.8.0) The time (in milliseconds since 1 Jan 1970) at which the song was listened to.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "submission",
+                        "in": "query",
+                        "description": "Whether this is a “submission” or a “now playing” notification.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "scrobble",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/scrobble/"
+                }
+            }
         }
     },
     "components": {
