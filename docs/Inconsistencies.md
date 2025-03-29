@@ -34,3 +34,8 @@
 * Could use inheritance for ArtistInfo and ArtistInfo2
 * `getPodcasts` payload dependent on query param `includeEpisodes`, but it doesn't indicate that structurally.
 * `jukeboxControl` payload dependent on query param `action: get`, but it doesn't indicate that structurally.
+
+## Differences from spec
+
+* Some typo fixes I failed to document:(
+* Added minimum: 0 to integer types where it's implied (`count`, `offset`, unix timstamp, `position`)
