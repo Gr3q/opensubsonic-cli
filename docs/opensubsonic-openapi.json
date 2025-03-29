@@ -3213,6 +3213,121 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/search/"
                 }
             }
+        },
+        "/rest/search2": {
+            "get": {
+                "summary": "Returns a listing of files matching the given search criteria. Supports paging through the result.",
+                "description": "Returns albums, artists and songs matching the given search criteria. Supports paging through the result.",
+                "operationId": "search2",
+                "tags": [
+                    "Searching"
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search query.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "artistCount",
+                        "in": "query",
+                        "description": "Maximum number of artists to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "artistOffset",
+                        "in": "query",
+                        "description": "Search result offset for artists. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "albumCount",
+                        "in": "query",
+                        "description": "Maximum number of albums to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "albumOffset",
+                        "in": "query",
+                        "description": "Search result offset for albums. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "songCount",
+                        "in": "query",
+                        "description": "Maximum number of songs to return.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "songOffset",
+                        "in": "query",
+                        "description": "Search result offset for songs. Used for paging.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "musicFolderId",
+                        "in": "query",
+                        "description": "(Since 1.12.0) Only return albums in the music folder with the given ID. See `getMusicFolders`.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful or failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Search2Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalDocs": {
+                    "description": "search2",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/search2/"
+                }
+            }
         }
     },
     "components": {
@@ -7333,6 +7448,75 @@
                 "externalDocs": {
                     "description": "SearchResultResponse",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/searchresult/"
+                }
+            },
+            "SearchResult2": {
+                "type": "object",
+                "description": "searchResult2",
+                "externalDocs": {
+                    "description": "SearchResult2",
+                    "url": "https://opensubsonic.netlify.app/docs/responses/searchresult2/"
+                },
+                "properties": {
+                    "artist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Artist"
+                        },
+                        "description": "Starred artists"
+                    },
+                    "album": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Starred albums"
+                    },
+                    "song": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Child"
+                        },
+                        "description": "Starred songs"
+                    }
+                }
+            },
+            "Search2SuccessResponse": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SubsonicSuccessResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "searchResult2": {
+                                "$ref": "#/components/schemas/SearchResult2"
+                            }
+                        },
+                        "required": [
+                            "searchResult2"
+                        ]
+                    }
+                ]
+            },
+            "Search2Response": {
+                "type": "object",
+                "description": "A subsonic-response element with a nested `searchResult2` element on success.",
+                "properties": {
+                    "subsonic-response": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/Search2SuccessResponse"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SubsonicFailureResponse"
+                            }
+                        ]
+                    }
+                },
+                "externalDocs": {
+                    "description": "SearchResult2Response",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/searchresult2/"
                 }
             }
         }

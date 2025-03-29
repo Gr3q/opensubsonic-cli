@@ -27,6 +27,7 @@
 * Typo in `search` `album` parameters's comment
 * `search` `any` parameter type unclear
 * `SearchResult` is not documented
+* `SearchResult2` all field details are incorrect
 
 ## Future Improvements
 
