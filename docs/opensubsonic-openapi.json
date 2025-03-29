@@ -2960,6 +2960,30 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/jukeboxcontrol/"
                 }
             }
+        },
+        "/rest/ping": {
+            "get": {
+                "summary": "Used to test connectivity with the server.",
+                "description": "Test connectivity with the server.",
+                "operationId": "ping",
+                "tags": [
+                    "System"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "ping",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/ping/"
+                }
+            }
         }
     },
     "components": {
