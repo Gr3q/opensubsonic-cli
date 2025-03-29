@@ -7,7 +7,7 @@
 * `deleteBookmark` summary and description is wrong
 * `download` error payload schema missing completely
 * `getArtists` page first `artists` link is broken
-* `getAvatar` `username` parameter is "required" and has a "default" as well.
+* `getAvatar` `username` parameter is "required" and has a "default" as well. it should be one or the other
 * `getCaptions` return payload not clear
 * `getCoverArt` `size` param type not specified, I assume `int` as pixels
 * `Indexes` `ignoredArticles` pattern is unclear, it was comma-separated list as string before
@@ -40,6 +40,9 @@
 * Could use inheritance for ArtistInfo and ArtistInfo2
 * `getPodcasts` payload dependent on query param `includeEpisodes`, but it doesn't indicate that structurally.
 * `jukeboxControl` payload dependent on query param `action: get`, but it doesn't indicate that structurally.
+* `getAlbumList` and `getAlbumList2` POST params can be a tagged union
+* `jukeboxcontrol` POST params can be a tagged union
+* Add version info for each endpoint and add 404 responses where the endpoint didn't exist since v1
 
 ## Differences from spec
 
