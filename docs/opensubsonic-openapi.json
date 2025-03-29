@@ -3778,6 +3778,66 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/unstar/"
                 }
             }
+        },
+        "/rest/updateInternetRadioStation": {
+            "get": {
+                "summary": "Updates an existing internet radio station.",
+                "description": "Updates an existing internet radio station. Only users with admin privileges are allowed to call this method.",
+                "operationId": "updateInternetRadioStation",
+                "tags": [
+                    "Internet Radio"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The ID of the station.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "streamUrl",
+                        "in": "query",
+                        "description": "The stream URL for the station.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "The user-defined name for the station.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "homepageUrl",
+                        "in": "query",
+                        "description": "The home page URL for the station.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "updateInternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/updateinternetradiostation/"
+                }
+            }
         }
     },
     "components": {
