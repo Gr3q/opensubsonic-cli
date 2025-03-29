@@ -40,7 +40,6 @@
 * Could use inheritance for ArtistInfo and ArtistInfo2
 * `getPodcasts` payload dependent on query param `includeEpisodes`, but it doesn't indicate that structurally.
 * `jukeboxControl` payload dependent on query param `action: get`, but it doesn't indicate that structurally.
-* Add support for `HTTP form POST` extension
 
 ## Differences from spec
 
@@ -50,3 +49,4 @@
 * All extensions are added to the schema and tagged as "Extension", and have a 404 return type as well that described as "Not Implemented"
 * Excluded `example`s, opted to use `externalDocs` only because it made the Swagger and Redoc generated documents harder to read. I might add them if they make sense for generated client code.
 * Extension query parameters are denoted, but nothing else can be done about them.
+* `HTTP form POST` extension support might be stricter than what's allowed (global params only allowed as query params, endpoint specific params are the ones allowed in request body)

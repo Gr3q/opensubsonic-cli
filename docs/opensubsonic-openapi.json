@@ -64,13 +64,12 @@
             },
             "post": {
                 "summary": "Adds a message to the chat log.",
-                "description": "Adds a message to the chat log.",
+                "description": "Adds a message to the chat log. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
                 "operationId": "postAddChatMessage",
                 "tags": [
                     "Chat"
                 ],
                 "requestBody": {
-                    "description": "The chat message.",
                     "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -142,6 +141,55 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "changePassword",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/changepassword/"
+                }
+            },
+            "post": {
+                "summary": "Changes the password of an existing user on the server.",
+                "description": "Changes the password of an existing user on the server, using the following parameters. You can only change your own password unless you have admin privileges. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postChangePassword",
+                "tags": [
+                    "User Management"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "The name of the user which should change its password."
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "The new password of the new user, either in clear text of hex-encoded (see above)."
+                                    }
+                                },
+                                "required": [
+                                    "username",
+                                    "password"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -250,6 +298,59 @@
                     "description": "createInternetRadioStation",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/createinternetradiostation/"
                 }
+            },
+            "post": {
+                "summary": "Adds a new internet radio station.",
+                "description": "Adds a new internet radio station. Only users with admin privileges are allowed to call this method. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postCreateInternetRadioStation",
+                "tags": [
+                    "Internet Radio"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "streamUrl": {
+                                        "type": "string",
+                                        "description": "The stream URL for the station."
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The station name."
+                                    },
+                                    "homepageUrl": {
+                                        "type": "string",
+                                        "description": "The home page URL for the station."
+                                    }
+                                },
+                                "required": [
+                                    "streamUrl",
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "createInternetRadioStation",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createinternetradiostation/"
+                }
             }
         },
         "/rest/createPlaylist": {
@@ -312,6 +413,61 @@
                     "description": "createPlaylist",
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/createplaylist/"
                 }
+            },
+            "post": {
+                "summary": "Creates (or updates) a playlist.",
+                "description": "Creates (or updates) a playlist. Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postCreatePlaylist",
+                "tags": [
+                    "Playlists"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "playlistId": {
+                                        "type": "string",
+                                        "description": "The playlist ID. Required if updating an existing playlist."
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The human-readable name of the playlist. Required if creating a new playlist."
+                                    },
+                                    "songId": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "description": "ID of a song in the playlist. Use one `songId` parameter for each song in the playlist."
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
+                    }
+                },
+                "externalDocs": {
+                    "description": "createPlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createplaylist/"
+                }
             }
         },
         "/rest/createPodcastChannel": {
@@ -339,6 +495,50 @@
                 "responses": {
                     "200": {
                         "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "createPodcastChannel",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/createpodcastchannel/"
+                }
+            },
+            "post": {
+                "summary": "Adds a new Podcast channel.",
+                "description": "Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts). Requires OpenSubsonic extension name `formPost` (As returned by `getOpenSubsonicExtensions`)",
+                "operationId": "postCreatePodcastChannel",
+                "tags": [
+                    "Podcast"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "description": "The URL of the Podcast to add."
+                                    }
+                                },
+                                "required": [
+                                    "url"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/HTTPFormPostNotSupported"
                     }
                 },
                 "externalDocs": {
@@ -1815,8 +2015,7 @@
                 "description": "OpenSubsonic extension name `songLyrics` (As returned by `getOpenSubsonicExtensions`). Retrieves all structured lyrics from the server for a given song. The lyrics can come from embedded tags (SYLT/USLT), LRC file/text file, or any other external source.",
                 "operationId": "getLyricsBySongId",
                 "tags": [
-                    "Media Retrieval",
-                    "Extension"
+                    "Media Retrieval"
                 ],
                 "parameters": [
                     {
@@ -2145,8 +2344,7 @@
                 "description": "OpenSubsonic extension name getPodcastEpisode (As returned by `getOpenSubsonicExtensions`). Returns details for a podcast episode.",
                 "operationId": "getPodcastEpisode",
                 "tags": [
-                    "Podcast",
-                    "Extension"
+                    "Podcast"
                 ],
                 "parameters": [
                     {
@@ -3729,8 +3927,7 @@
                 "description": "OpenSubsonic extension name `apiKeyAuthentication` (As returned by `getOpenSubsonicExtensions`). Returns data about an API key.",
                 "operationId": "tokenInfo",
                 "tags": [
-                    "System",
-                    "Extension"
+                    "System"
                 ],
                 "parameters": [
                     {
