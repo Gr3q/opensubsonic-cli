@@ -3838,6 +3838,94 @@
                     "url": "https://opensubsonic.netlify.app/docs/endpoints/updateinternetradiostation/"
                 }
             }
+        },
+        "/rest/updatePlaylist": {
+            "get": {
+                "summary": "Updates a playlist. Only the owner of a playlist is allowed to update it.",
+                "description": "Updates a playlist. Only the owner of a playlist is allowed to update it.",
+                "operationId": "updatePlaylist",
+                "tags": [
+                    "Playlists"
+                ],
+                "parameters": [
+                    {
+                        "name": "playlistId",
+                        "in": "query",
+                        "description": "The playlist ID.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "The human-readable name of the playlist.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "The playlist comment.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "public",
+                        "in": "query",
+                        "description": "`true` if the playlist should be visible to all users, `false` otherwise.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "songIdToAdd",
+                        "in": "query",
+                        "description": "Add this song with this ID to the playlist. Multiple parameters allowed.",
+                        "explode": true,
+                        "style": "form",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "songIndexToRemove",
+                        "in": "query",
+                        "description": "Remove the song at this position in the playlist. Multiple parameters allowed.",
+                        "explode": true,
+                        "style": "form",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/f"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/EmptySubsonicResponse"
+                    }
+                },
+                "externalDocs": {
+                    "description": "updatePlaylist",
+                    "url": "https://opensubsonic.netlify.app/docs/endpoints/updateplaylist/"
+                }
+            }
         }
     },
     "components": {
